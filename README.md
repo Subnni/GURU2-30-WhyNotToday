@@ -1,4 +1,6 @@
 안드로이드 스튜디오 프로젝트 폴더 파일
 
-핑계 키워드 Extract 클래스 포함
-메인엑티비티는 통계 화면(액티비티) 프로토타입
+액티비티 파일
+- MainActivity : 홈화면
+- ListActivity : 핑계 목록 화면
+- StatActivity : 통계 화면

@@ -12,7 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WhyNotToday">
         <activity
+            android:name=".ListActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StatActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

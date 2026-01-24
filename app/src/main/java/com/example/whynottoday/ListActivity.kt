@@ -1,20 +1,255 @@
 package com.example.whynottoday
 
+import android.database.Cursor
+import android.database.sqlite.SQLiteDatabase
+import android.graphics.Color
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.util.Log
+import android.view.Gravity
+import android.view.View
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.whynottoday.CalendarUtils.daysInWeekArray
+import com.example.whynottoday.CalendarUtils.monthYearFromDate
+import com.example.whynottoday.CalendarUtils.weekFromDate
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
-class ListActivity : AppCompatActivity() {
+class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
+
+    //사용 변수 - 캘린더
+    private lateinit var monthYearTextView: TextView
+    private lateinit var weekTextView : TextView
+    private lateinit var calendarRecyclerView: RecyclerView
+
+    //사용 변수 - 오늘 날짜 정보
+    private lateinit var selectedDateTextView : TextView
+    private lateinit var excuseDensityTextView : TextView
+    private lateinit var excuseDensityBox : View
+
+    //사용 변수 - 오늘 날짜 리스트
+    private lateinit var dbManager: DBManager
+    private lateinit var sqlitedb : SQLiteDatabase
+    private lateinit var excuseLayout : LinearLayout
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_list)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        //DB 세팅
+        dbManager = DBManager(this, "WhyNotTodayDB.db", null, 1)
+        dbManager.settingDB()
+        sqlitedb = dbManager.readableDatabase
+
+        //위젯 초기화
+        initWidgets()
+
+        //달력 및 리스트 세팅
+        setWeekView()
+    }
+
+    private fun initWidgets() {
+        calendarRecyclerView = findViewById<RecyclerView?>(R.id.calendarRecyclerView)
+        monthYearTextView = findViewById<TextView?>(R.id.monthYearTextView)
+        weekTextView = findViewById<TextView?>(R.id.weekTextView)
+        selectedDateTextView = findViewById<TextView?>(R.id.selectedDateTextView)
+        excuseDensityTextView = findViewById<TextView?>(R.id.excuseDensityTextView2)
+        excuseDensityBox = findViewById<View?>(R.id.excuseDensityBox)
+        excuseLayout = findViewById(R.id.excuseLayout)
+
+    }
+
+    private fun setWeekView() {
+        monthYearTextView.setText(monthYearFromDate(CalendarUtils.selectedDate))
+        weekTextView.setText(weekFromDate(CalendarUtils.selectedDate))
+        val days: ArrayList<LocalDate?>? = daysInWeekArray(CalendarUtils.selectedDate)
+
+        val calendarAdapter = CalendarAdapter(days, this)
+        val layoutManager: RecyclerView.LayoutManager =
+            GridLayoutManager(getApplicationContext(), 7)
+        calendarRecyclerView.setLayoutManager(layoutManager)
+        calendarRecyclerView.setAdapter(calendarAdapter)
+
+        setSelectedDateAdapter()
+        setExcuseLayoutAdapter()
+    }
+
+    fun previousWeekAction(view: View?) {
+        CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusWeeks(1)
+        setWeekView()
+    }
+    fun nextWeekAction(view: View?) {
+        CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusWeeks(1)
+        setWeekView()
+    }
+
+    public override fun onItemClick(position: Int, date: LocalDate?) {
+        CalendarUtils.selectedDate = date
+        setWeekView()
+    }
+
+    //추가, 수정, 삭제 후 목록 다시 그리기
+    override fun onResume() {
+        super.onResume()
+        setExcuseLayoutAdapter()
+    }
+
+    //선택된 날의 날짜, 핑계 농도 출력
+    private fun setSelectedDateAdapter(){
+        val selectedDate = CalendarUtils.selectedDate
+        val format = DateTimeFormatter.ofPattern("MM. dd (E)")
+        selectedDateTextView.text = selectedDate.format(format)
+
+        var cursor : Cursor
+        var query = "SELECT count(*) FROM todoTBL " +
+                "WHERE date_time LIKE '$selectedDate%' " +
+                "AND is_done = 0"
+        cursor = sqlitedb.rawQuery(query, null)
+        val incompleteTaskCount = if (cursor.moveToFirst()) cursor.getInt(0) else 0
+        cursor.close()
+
+        var query2 = "SELECT count(*) FROM todoTBL " +
+                "INNER JOIN excuseTBL ON todoTBL.todo_id = excuseTBL.todo_id " +
+                "WHERE todoTBL.date_time LIKE '$selectedDate%'"
+        cursor = sqlitedb.rawQuery(query2, null)
+        val excuseCount = if (cursor.moveToFirst()) cursor.getInt(0) else 0
+        cursor.close()
+
+        val excuseRatio = if(incompleteTaskCount==0) 0 else {
+            ((excuseCount.toFloat()/incompleteTaskCount.toFloat()) * 100).toInt()
         }
+        excuseDensityTextView.text = "${excuseRatio}%"
+        CalendarUtils.updateBoxColor(excuseDensityBox, excuseRatio)
+    }
+    //선택된 날의 핑계 리스트 출력
+    private fun setExcuseLayoutAdapter() {
+
+        excuseLayout.removeAllViews() //기존 뷰 제거
+
+        val selectedDate = CalendarUtils.selectedDate
+        var cursor : Cursor
+        var query = "SELECT * FROM todoTBL " +
+                "INNER JOIN excuseTBL ON todoTBL.todo_id = excuseTBL.todo_id " +
+                "WHERE todoTBL.date_time LIKE '$selectedDate%'"
+        cursor = sqlitedb.rawQuery(query, null)
+        var num : Int = 0
+
+        if (cursor.count == 0) {
+            val noneExcuseTextView = TextView(this)
+            noneExcuseTextView.text = "오늘은 핑계 없이 갓생을 사셨군요! ✨"
+            noneExcuseTextView.setTextColor(Color.GRAY)
+            noneExcuseTextView.gravity = Gravity.CENTER
+            excuseLayout.addView(noneExcuseTextView)
+        } else {
+            while(cursor.moveToNext()){
+                Log.d("DB_DEBUG", num.toString())
+                var str_excuse = cursor.getString(cursor.getColumnIndexOrThrow("excuse_reason")).toString()
+                var str_todo = cursor.getString(cursor.getColumnIndexOrThrow("todo_name")).toString()
+                var isImportant = cursor.getInt(cursor.getColumnIndexOrThrow("is_important"))
+                var str_time = cursor.getString(cursor.getColumnIndexOrThrow("date_time")).toString()
+
+                var str_timeFormatted = try{
+                    val time = str_time.trim().split(" ")[1]
+                    val splitedTime = time.split(":")
+                    val hour = splitedTime[0].toInt()
+                    var minute = splitedTime[1].toInt()
+
+                    //meridiem = am/pm 통칭
+                    val meridiem = if(hour < 12) "오전" else "오후"
+                    val hour2 = if(hour>12) hour - 12 else hour
+
+                    "$meridiem $hour2:${String.format("%02d", minute)}"
+                }catch (e : Exception){
+                    str_time
+                }
+
+                var excuseItem : LinearLayout = LinearLayout(this)
+                excuseItem.orientation = LinearLayout.VERTICAL
+
+                excuseItem.id = num
+                excuseItem.setTag(str_excuse)
+                excuseItem.setBackgroundResource(R.drawable.excuse_item_box)
+                val param3 = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                param3.setMargins(0,0,0,30)
+                excuseItem.layoutParams = param3
+
+                var innerLayout : LinearLayout = LinearLayout(this)
+                innerLayout.orientation= LinearLayout.VERTICAL
+                innerLayout.setPadding(50,50,50,50)
+
+                var todoLayout : LinearLayout = LinearLayout(this)
+                todoLayout.orientation= LinearLayout.HORIZONTAL
+                val param1 = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                param1.setMargins(0,0,0,30)
+                todoLayout.layoutParams = param1
+
+                var todoLeftLayout : LinearLayout = LinearLayout(this)
+                todoLeftLayout.orientation= LinearLayout.VERTICAL
+                todoLayout.addView(todoLeftLayout)
+
+                var isImportantTextView : TextView = TextView(this)
+                isImportantTextView.text = if (isImportant == 1) "중요" else "안중요"
+                todoLayout.addView(isImportantTextView)
+
+                val leftParam = LinearLayout.LayoutParams(
+                    0,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    1.0f
+                )
+                todoLeftLayout.layoutParams = leftParam
+
+                val rightParam = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                isImportantTextView.layoutParams = rightParam
+
+                var timeTextView : TextView = TextView(this)
+                timeTextView.text = str_timeFormatted
+                timeTextView.setTextColor(Color.LTGRAY)
+                timeTextView.textSize=10F
+                todoLeftLayout.addView(timeTextView)
+
+                var todoTextView : TextView = TextView(this)
+                todoTextView.text = str_todo
+                todoTextView.textSize = 15F
+                todoLeftLayout.addView(todoTextView)
+
+                innerLayout.addView(todoLayout)
+
+                val horizontalLineView = View(this)
+                val param2 = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    2
+                )
+                param2.setMargins(0, 10, 0, 10)
+                horizontalLineView.layoutParams = param2
+                horizontalLineView.setBackgroundColor(Color.LTGRAY)
+                innerLayout.addView(horizontalLineView)
+
+                var excuseTextView : TextView = TextView(this)
+                excuseTextView.text = str_excuse
+                excuseTextView.textSize = 13F
+                excuseTextView.setPadding(0,10,0,0)
+                innerLayout.addView(excuseTextView)
+
+
+                excuseItem.addView((innerLayout))
+                excuseLayout.addView(excuseItem)
+                num++
+            }
+        }
+
+        cursor.close()
     }
 }

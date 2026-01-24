@@ -1,10 +1,236 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListActivity">
+    android:orientation="vertical"
+    android:background="#FFFFFF">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!--헤더-->
+    <include
+        android:id="@+id/header"
+        layout="@layout/layout_header" />
+
+    <!--상단 유저 프로필-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="20dp"
+        android:paddingVertical="16dp"
+        android:layout_marginBottom="15dp"
+        android:layout_gravity="center_horizontal"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/userAvatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/profile_default_image" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="14dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/greetingTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="닉네임"
+
+                    android:textSize="21sp"
+                    android:fontFamily="@font/paperlogy_extrabold"
+                    android:textColor="#4400ff"/>
+                <TextView
+                    android:id="@+id/greetingTextView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="님, 안녕하세요!"
+                    android:textSize="21sp"
+
+                    android:textColor="#333333"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/subGreetingTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="했던 핑계들을 살펴볼게요!"
+                android:textSize="14sp"
+                android:textColor="#999999"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--월 출력-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/monthYearTextView"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:text="2025년 0월"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+    <!--주차 선택-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp">
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/baseline_settings_24"
+            android:background="@null"
+            android:onClick="previousWeekAction"
+            android:scaleType="fitEnd"/>
+
+
+        <TextView
+            android:id="@+id/weekTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="- 주차"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/baseline_settings_24"
+            android:background="@null"
+            android:onClick="nextWeekAction"
+            android:scaleType="fitStart"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
+        android:layout_marginBottom="25dp"
+
+        android:orientation="vertical">
+
+        <!--날짜-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/calendarRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="7"
+            tools:itemCount="7"
+            tools:listitem="@layout/calendar_cell" />
+    </LinearLayout>
+
+    <!--리스트 영역-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#F0F0FF" >
+
+        <!--날짜 개요-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="20dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp">
+
+            <TextView
+                android:id="@+id/selectedDateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00.00 (요일)"
+                android:textColor="#7B89F4"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/excuseDensityTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="핑계 농도"
+                android:textColor="#7B89F4"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/excuseDensityTextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="-%"
+                android:textColor="#7B89F4"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/excuseDensityBox"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/rounded_box" />
+
+        </LinearLayout>
+
+        <!--날짜별 핑계 목록-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/excuseLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

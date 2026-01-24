@@ -7,4 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="핑계 목록"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="655dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

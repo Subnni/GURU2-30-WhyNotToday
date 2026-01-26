@@ -150,6 +150,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:text="-%"
+                    android:fontFamily="@font/paperlogy_bold"
                     android:textColor="#7B89F4"
                     android:textSize="15sp"
                     android:textStyle="bold" />

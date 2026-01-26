@@ -78,4 +78,6 @@ dependencies {
     // kizitonwose CalendarView
     implementation("com.kizitonwose.calendar:view:2.4.0")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
+//    //splash Screen API
+//    implementation("androidx.core:core-splashscreen:1.0.1")
 }

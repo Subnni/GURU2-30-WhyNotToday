@@ -1,6 +1,7 @@
 package com.example.whynottoday
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
@@ -9,14 +10,18 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.setPadding
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.whynottoday.CalendarUtils.daysInWeekArray
@@ -189,6 +194,7 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
             noneExcuseTextView.text = "오늘은 핑계 없이 갓생을 사셨군요! ✨"
             noneExcuseTextView.setTextColor(Color.GRAY)
             noneExcuseTextView.gravity = Gravity.CENTER
+            noneExcuseTextView.setPadding(0, 60, 0, 0)
             excuseLayout.addView(noneExcuseTextView)
         } else {
             while(cursor.moveToNext()){
@@ -214,13 +220,14 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
                     str_time
                 }
 
+                //핑계 아이템 생성
                 var excuseItem : LinearLayout = LinearLayout(this)
                 excuseItem.orientation = LinearLayout.VERTICAL
 
                 excuseItem.id = num
                 excuseItem.setTag(str_excuse)
                 excuseItem.setBackgroundResource(R.drawable.excuse_item_box)
-                excuseItem.elevation=30F
+                excuseItem.elevation=3F
                 val param3 = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
@@ -229,8 +236,7 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
                 excuseItem.layoutParams = param3
 
                 excuseItem.setOnClickListener {
-                    //임시로 메인액티비티 지정
-                    val intent = Intent(this, MainActivity::class.java)
+                    val intent = Intent(this, AddExcuseActivity::class.java)
                     intent.putExtra("EXCUSE_ID", excuseId) // ID 전달
                     startActivity(intent)
                 }
@@ -241,6 +247,7 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
 
                 var todoLayout : LinearLayout = LinearLayout(this)
                 todoLayout.orientation= LinearLayout.HORIZONTAL
+                todoLayout.gravity = Gravity.CENTER_VERTICAL
                 val param1 = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
@@ -252,8 +259,12 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
                 todoLeftLayout.orientation= LinearLayout.VERTICAL
                 todoLayout.addView(todoLeftLayout)
 
-                var isImportantTextView : TextView = TextView(this)
-                isImportantTextView.text = if (isImportant == 1) "중요" else "안중요"
+                //중요 표시 생성
+                var isImportantTextView : ImageView = ImageView(this)
+                isImportantTextView.setImageResource(R.drawable.star_image)
+                isImportantTextView.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.blue_100))
+                isImportantTextView.visibility = if (isImportant == 1) View.VISIBLE else View.INVISIBLE
+                isImportantTextView.setPadding(0,0,10,0)
                 todoLayout.addView(isImportantTextView)
 
                 val leftParam = LinearLayout.LayoutParams(
@@ -269,19 +280,26 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
                 )
                 isImportantTextView.layoutParams = rightParam
 
+                //시간 텍스트뷰 생성
                 var timeTextView : TextView = TextView(this)
                 timeTextView.text = str_timeFormatted
-                timeTextView.setTextColor(Color.LTGRAY)
+                timeTextView.setTextColor(ContextCompat.getColor(this, R.color.gray_70))
                 timeTextView.textSize=10F
                 todoLeftLayout.addView(timeTextView)
 
+                //할일 텍스트뷰 생성
                 var todoTextView : TextView = TextView(this)
+                todoTextView.setTextColor(ContextCompat.getColor(this, R.color.gray))
                 todoTextView.text = str_todo
                 todoTextView.textSize = 15F
+                val textColor = if (isImportant == 1) R.color.blue_100 else R.color.gray
+                todoTextView.setTextColor(ContextCompat.getColor(this, textColor))
+                todoTextView.typeface = ResourcesCompat.getFont(this, R.font.paperlogy_semibold)
                 todoLeftLayout.addView(todoTextView)
 
                 innerLayout.addView(todoLayout)
 
+                //구분선 생성
                 val horizontalLineView = View(this)
                 val param2 = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -292,7 +310,9 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
                 horizontalLineView.setBackgroundColor(Color.LTGRAY)
                 innerLayout.addView(horizontalLineView)
 
+                //핑계 텍스트뷰 생성
                 var excuseTextView : TextView = TextView(this)
+                excuseTextView.setTextColor(ContextCompat.getColor(this, R.color.gray))
                 excuseTextView.text = str_excuse
                 excuseTextView.textSize = 13F
                 excuseTextView.setPadding(0,10,0,0)
@@ -304,6 +324,8 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
                 num++
             }
         }
+
+
         cursor.close()
     }
 }

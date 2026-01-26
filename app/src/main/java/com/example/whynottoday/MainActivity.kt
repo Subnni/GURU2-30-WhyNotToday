@@ -15,6 +15,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -35,7 +36,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_main)
 
         val commonUIHandler = CommonUIHandler()
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         paperFont = ResourcesCompat.getFont(this, R.font.paperlogy_medium)
 
-        tvDate = findViewById(R.id.rkm9dvygs3k)
+        tvDate = findViewById(R.id.dateTextView)
         tvDay = findViewById(R.id.rroir2r69w0b)
         btnAdd = findViewById(R.id.todoAddImageButton)
         containerImportant = findViewById(R.id.rawakuad9k4)
@@ -78,6 +78,17 @@ class MainActivity : AppCompatActivity() {
         tvDate.text = uiFormat.format(currentCalendar.time)
         val dayFormat = SimpleDateFormat("EEEE", Locale.KOREA)
         tvDay.text = dayFormat.format(currentCalendar.time)
+
+        //오늘 날짜의 색상 변경
+        val todayStr = uiFormat.format(Date())
+        if (uiFormat.format(currentCalendar.time) == todayStr) {
+            tvDate.setTextColor(ContextCompat.getColor(this, R.color.blue_100))
+            tvDay.setTextColor(ContextCompat.getColor(this, R.color.blue_100))
+        } else {
+            tvDate.setTextColor(ContextCompat.getColor(this, R.color.gray))
+            tvDay.setTextColor(ContextCompat.getColor(this, R.color.gray))
+        }
+        
         loadAndDisplayData(SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(currentCalendar.time))
     }
 
@@ -165,23 +176,26 @@ class MainActivity : AppCompatActivity() {
 
             // 텍스트 영역 (동일)
             val textLayout = LinearLayout(this@MainActivity).apply { orientation = LinearLayout.VERTICAL; layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f) }
-            textLayout.addView(TextView(this@MainActivity).apply { text = time; textSize = 10f; typeface = paperFont; setTextColor(Color.parseColor("#3A3A3A")) })
-            textLayout.addView(TextView(this@MainActivity).apply { text = name; textSize = 15f; typeface = paperFont; setTextColor(Color.parseColor("#3A3A3A")); maxLines = 1 })
+            textLayout.addView(TextView(this@MainActivity).apply { text = time; textSize = 10f; typeface = paperFont; setTextColor(ContextCompat.getColor(this@MainActivity, R.color.gray_70)) })
+            textLayout.addView(TextView(this@MainActivity).apply { text = name; textSize = 15f; typeface = paperFont; setTextColor(ContextCompat.getColor(this@MainActivity, R.color.gray)); maxLines = 1 })
             addView(textLayout)
 
-            // 💡 [수정] 핑계 존재 여부에 따라 이모지 투명도 조절
-            addView(ImageView(this@MainActivity).apply {
-                layoutParams = LinearLayout.LayoutParams(dpToPx(24f), dpToPx(24f))
-                setImageResource(if (important == 1) R.drawable.vector7 else R.drawable.vector8)
+            if(done != 1){
+                // 💡 [수정] 핑계 존재 여부에 따라 이모지 투명도 조절
+                addView(ImageView(this@MainActivity).apply {
+                    layoutParams = LinearLayout.LayoutParams(dpToPx(24f), dpToPx(24f))
+                    setImageResource(if (important == 1) R.drawable.vector7 else R.drawable.vector8)
 
-                // 💡 핑계가 있으면 진하게(1.0), 없으면 연하게(0.3) 표시
-                alpha = if (hasExcuse) 1.0f else 0.3f
+                    // 💡 핑계가 있으면 진하게(1.0), 없으면 연하게(0.3) 표시
+                    alpha = if (hasExcuse) 1.0f else 0.3f
 
-                setOnClickListener {
-                    val intent = Intent(this@MainActivity, AddExcuseActivity::class.java)
-                    intent.putExtra("TODO_ID", id); startActivity(intent)
-                }
-            })
+                    setOnClickListener {
+                        val intent = Intent(this@MainActivity, AddExcuseActivity::class.java)
+                        intent.putExtra("TODO_ID", id); startActivity(intent)
+                    }
+                })
+            }
+
         }
     }
 }

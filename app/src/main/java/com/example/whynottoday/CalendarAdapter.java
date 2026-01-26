@@ -1,6 +1,7 @@
 package com.example.whynottoday;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.time.LocalDate;
@@ -45,6 +47,7 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
     @Override
     public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position)
     {
+        Context context = holder.itemView.getContext();
         final LocalDate date = days.get(position);
         if(date == null){
             holder.dayOfMonth.setText("");
@@ -56,25 +59,24 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
             holder.dayOfMonth.setText(String.valueOf(date.getDayOfMonth()));
             holder.dayOfWeek.setText(getDayOfWeekName(date));
             if("일".equals(holder.dayOfWeek.getText().toString())) {
-                holder.dayOfWeek.setTextColor(Color.RED);
-                holder.dayOfMonth.setTextColor(Color.RED);
+                holder.dayOfWeek.setTextColor(ContextCompat.getColor(context, R.color.red));
+                holder.dayOfMonth.setTextColor(ContextCompat.getColor(context, R.color.red));
             }
             if("토".equals(holder.dayOfWeek.getText().toString())) {
-                holder.dayOfWeek.setTextColor(Color.BLUE);
-                holder.dayOfMonth.setTextColor(Color.BLUE);
+                holder.dayOfWeek.setTextColor(ContextCompat.getColor(context, R.color.blue_100));
+                holder.dayOfMonth.setTextColor(ContextCompat.getColor(context, R.color.blue_100));
             }
             //오늘 날짜 배경색 변경
             LocalDate today = LocalDate.now();
             if (date.equals(today)) {
-                holder.parentView.setBackgroundColor(Color.parseColor("#FFF9C4")); // 연노랑 등 오늘 표시용 색상
+                holder.parentView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.green_20)));
             }
 
             //선택된 날짜의 배경색 변경
             if(date.equals(CalendarUtils.selectedDate))
-                holder.parentView.setBackgroundColor(Color.parseColor("#D1E7FF"));
+                holder.parentView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.blue_20)));
 
             //날짜별 핑계 농도 계산하여 박스 배경색 적용
-            Context context = holder.itemView.getContext();
             if (sqlitedb == null) {
                 DBManager dbManager = new DBManager(context, "WhyNotTodayDB.db", null, 1);
                 sqlitedb = dbManager.getReadableDatabase();

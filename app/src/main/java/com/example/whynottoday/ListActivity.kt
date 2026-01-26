@@ -53,7 +53,6 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
 
         //DB 세팅
         dbManager = DBManager(this, "WhyNotTodayDB.db", null, 1)
-        dbManager.settingDB()
         sqlitedb = dbManager.readableDatabase
 
         //공통 UI 초기화
@@ -221,6 +220,7 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
                 excuseItem.id = num
                 excuseItem.setTag(str_excuse)
                 excuseItem.setBackgroundResource(R.drawable.excuse_item_box)
+                excuseItem.elevation=30F
                 val param3 = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT

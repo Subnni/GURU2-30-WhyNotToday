@@ -32,7 +32,7 @@
                     android:layout_height="602dp"
                     android:layout_marginHorizontal="32dp"
                     android:layout_marginBottom="22dp"
-                    android:background="@drawable/cr37bffffff"
+                    android:background="@drawable/main_box"
                     android:elevation="10dp"
                     android:orientation="vertical"
                     android:paddingTop="20dp">

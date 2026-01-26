@@ -39,7 +39,7 @@ class AddTodoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_todo)
 
         paperFont = ResourcesCompat.getFont(this, R.font.paperlogy_medium)
-        dbManager = DBManager(this, "WhyNotTodayDB.db", null, 5)
+        dbManager = DBManager(this, "WhyNotTodayDB.db", null, 1)
 
         // 위젯 연결
         tvTitle = findViewById(R.id.rbfovzr19n7)

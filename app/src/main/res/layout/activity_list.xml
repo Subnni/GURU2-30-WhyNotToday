@@ -192,7 +192,6 @@
     <!--네비게이션 바-->
     <include
         android:id="@+id/navigationBar"
-        android:elevation="20dp"
         android:outlineProvider="background"
         layout="@layout/layout_navigation_bar" />
 

@@ -10,6 +10,7 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -21,7 +22,7 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     lateinit var tvDate: TextView
     lateinit var tvDay: TextView
-    lateinit var btnAdd: LinearLayout
+    lateinit var btnAdd: ImageButton
     lateinit var containerImportant: LinearLayout
     lateinit var containerGeneral: LinearLayout
     lateinit var ivPrev: ImageView
@@ -37,22 +38,25 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
+        val commonUIHandler = CommonUIHandler()
+        commonUIHandler.setupListener(this)
+
         paperFont = ResourcesCompat.getFont(this, R.font.paperlogy_medium)
 
         tvDate = findViewById(R.id.rkm9dvygs3k)
         tvDay = findViewById(R.id.rroir2r69w0b)
-        btnAdd = findViewById(R.id.rszeiw43jhxf)
+        btnAdd = findViewById(R.id.todoAddImageButton)
         containerImportant = findViewById(R.id.rawakuad9k4)
         containerGeneral = findViewById(R.id.rc2qf6n0zmml)
         ivPrev = findViewById(R.id.r8xx1vippkv9)
         ivNext = findViewById(R.id.r8ajnwmbi7si)
 
         // 섹션 타이틀 포함 폰트 적용
-        val staticTexts = listOf(tvDate, tvDay, findViewById<TextView>(R.id.rrp7w0ojci6s),
+        val staticTexts = listOf(tvDate, tvDay,
             findViewById<TextView>(R.id.rn7lao1l6yv8), findViewById<TextView>(R.id.rapw2kdupbc8))
         staticTexts.forEach { it.typeface = paperFont }
 
-        dbManager = DBManager(this, "WhyNotTodayDB.db", null, 5)
+        dbManager = DBManager(this, "WhyNotTodayDB.db", null, 1)
         updateScreenByDate()
 
         ivPrev.setOnClickListener { currentCalendar.add(Calendar.DAY_OF_YEAR, -1); updateScreenByDate() }

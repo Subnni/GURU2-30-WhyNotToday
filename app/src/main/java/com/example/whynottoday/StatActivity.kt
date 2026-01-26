@@ -47,8 +47,11 @@ class StatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_statistic)
 
+        val commonUIHandler = CommonUIHandler()
+        commonUIHandler.setupListener(this)
+
         initViews()
-        setupBottomNavigation()
+//        setupBottomNavigation()
         setupMonthSelector()
 
         // 더미 데이터 한 번 그려주기
@@ -81,26 +84,26 @@ class StatActivity : AppCompatActivity() {
     }
 
     /** 하단 네비게이션 버튼 동작 */
-    private fun setupBottomNavigation() {
-        // 리스트 화면으로
-        listMenuImageButton.setOnClickListener {
-            val intent = Intent(this, ListActivity::class.java)
-            startActivity(intent)
-            overridePendingTransition(0, 0)
-        }
-
-        // 홈 화면으로
-        homeMenuImageButton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            overridePendingTransition(0, 0)
-        }
-
-        // 통계 화면(현재 화면) - 선택된 느낌 내고 싶으면 tint만 바꿔주기
-        statMenuImageButton.isEnabled = false   // 현재 탭이니까 비활성화 느낌
-        statMenuImageButton.imageTintList =
-            getColorStateList(android.R.color.holo_blue_dark)
-    }
+//    private fun setupBottomNavigation() {
+//        // 리스트 화면으로
+//        listMenuImageButton.setOnClickListener {
+//            val intent = Intent(this, ListActivity::class.java)
+//            startActivity(intent)
+//            overridePendingTransition(0, 0)
+//        }
+//
+//        // 홈 화면으로
+//        homeMenuImageButton.setOnClickListener {
+//            val intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent)
+//            overridePendingTransition(0, 0)
+//        }
+//
+//        // 통계 화면(현재 화면) - 선택된 느낌 내고 싶으면 tint만 바꿔주기
+//        statMenuImageButton.isEnabled = false   // 현재 탭이니까 비활성화 느낌
+//        statMenuImageButton.imageTintList =
+//            getColorStateList(android.R.color.holo_blue_dark)
+//    }
 
     /** 월 이동 버튼 동작 */
     private fun setupMonthSelector() {

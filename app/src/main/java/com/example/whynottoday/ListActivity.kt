@@ -165,7 +165,7 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
 
         var query2 = "SELECT count(*) FROM todoTBL " +
                 "INNER JOIN excuseTBL ON todoTBL.todo_id = excuseTBL.todo_id " +
-                "WHERE todoTBL.date_time LIKE '$selectedDate%'"
+                "WHERE todoTBL.date_time LIKE '$selectedDate%' AND todoTBL.is_done = 0"
         cursor = sqlitedb.rawQuery(query2, null)
         val excuseCount = if (cursor.moveToFirst()) cursor.getInt(0) else 0
         cursor.close()
@@ -199,7 +199,7 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
         } else {
             while(cursor.moveToNext()){
                 Log.d("DB_DEBUG", num.toString())
-                var excuseId = cursor.getInt(cursor.getColumnIndexOrThrow("excuse_id"))
+                var todoId = cursor.getInt(cursor.getColumnIndexOrThrow("todo_id"))
                 var str_excuse = cursor.getString(cursor.getColumnIndexOrThrow("excuse_reason")).toString()
                 var str_todo = cursor.getString(cursor.getColumnIndexOrThrow("todo_name")).toString()
                 var isImportant = cursor.getInt(cursor.getColumnIndexOrThrow("is_important"))
@@ -237,7 +237,7 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
 
                 excuseItem.setOnClickListener {
                     val intent = Intent(this, AddExcuseActivity::class.java)
-                    intent.putExtra("EXCUSE_ID", excuseId) // ID 전달
+                    intent.putExtra("TODO_ID", todoId) // ID 전달
                     startActivity(intent)
                 }
 

@@ -26,7 +26,7 @@
             android:src="@drawable/list_menu_image"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            app:tint="#cccccc"/>
+            app:tint="#d7d7d7"/>
 
         <ImageButton
             android:id="@+id/homeMenuImageButton"
@@ -36,7 +36,7 @@
             android:src="@drawable/home_menu_image"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            app:tint="#cccccc"/>
+            app:tint="#d7d7d7"/>
 
         <ImageButton
             android:id="@+id/statMenuImageButton"
@@ -46,7 +46,7 @@
             android:src="@drawable/stat_menu_image"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            app:tint="#cccccc"/>
+            app:tint="#d7d7d7"/>
 
 
     </LinearLayout>

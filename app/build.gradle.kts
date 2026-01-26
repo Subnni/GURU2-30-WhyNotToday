@@ -80,4 +80,5 @@ dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 //    //splash Screen API
 //    implementation("androidx.core:core-splashscreen:1.0.1")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }

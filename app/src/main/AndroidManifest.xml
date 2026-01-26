@@ -11,22 +11,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WhyNotToday">
-        <activity
-            android:name=".ProfileActivity"
-            android:exported="false" />
 
         <activity
             android:name=".ListActivity"
             android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".AddTodoActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".AddExcuseActivity"
+            android:exported="false" />
+
         <activity
             android:name=".StatActivity"
             android:exported="false" />

@@ -173,7 +173,7 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
         val excuseRatio = if(incompleteTaskCount==0) 0 else {
             ((excuseCount.toFloat()/incompleteTaskCount.toFloat()) * 100).toInt()
         }
-        excuseDensityTextView.text = "${excuseRatio}%"
+        excuseDensityTextView.text = "${minOf(excuseRatio, 100)}%"
         CalendarUtils.updateBoxColor(excuseDensityBox, excuseRatio)
     }
     //선택된 날의 핑계 리스트 출력
@@ -185,7 +185,7 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
         var cursor : Cursor
         var query = "SELECT * FROM todoTBL " +
                 "INNER JOIN excuseTBL ON todoTBL.todo_id = excuseTBL.todo_id " +
-                "WHERE todoTBL.date_time LIKE '$selectedDate%'"
+                "WHERE todoTBL.date_time LIKE '$selectedDate%' AND todoTBL.is_done == 0"
         cursor = sqlitedb.rawQuery(query, null)
         var num : Int = 0
 

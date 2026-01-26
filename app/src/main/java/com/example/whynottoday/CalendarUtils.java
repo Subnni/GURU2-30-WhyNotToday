@@ -91,7 +91,7 @@ public class CalendarUtils
     public static void updateBoxColor(View view, int score) {
         view.setBackgroundResource(R.drawable.box_color);
         if (view.getBackground() != null) {
-            view.getBackground().setLevel(score);
+            view.getBackground().setLevel(Math.min(score, 100));
         }
     }
 

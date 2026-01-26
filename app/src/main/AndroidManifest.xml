@@ -13,6 +13,12 @@
         android:theme="@style/Theme.WhyNotToday">
 
         <activity
+            android:name=".MainActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".ListActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -29,6 +35,9 @@
             android:name=".AddExcuseActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".StatActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -49,6 +49,7 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true // 하위 버전 호환성 설정
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
@@ -65,6 +66,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.fragment)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -73,5 +75,7 @@ dependencies {
     implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
     //Kotlinx Serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
-
+    // kizitonwose CalendarView
+    implementation("com.kizitonwose.calendar:view:2.4.0")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 }

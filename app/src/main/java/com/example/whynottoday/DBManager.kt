@@ -18,9 +18,9 @@ class DBManager(
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        // 1. todo 테이블 생성 (ERD 기준)
+        // 1. 테이블 이름을 todoTBL로 수정함.
         db!!.execSQL("""
-            CREATE TABLE todo (
+            CREATE TABLE todoTBL (
                 todo_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 is_important INTEGER NOT NULL,
                 todo_name TEXT NOT NULL,
@@ -29,20 +29,21 @@ class DBManager(
             )
         """)
 
-        // 2. excuse 테이블 생성 (todo_id 외래 키 연결)
+        // 2. 테이블 이름을 excuseTBL로 수정하고 외래 키 참조 대상도 todoTBL로 변경함.
         db.execSQL("""
-            CREATE TABLE excuse (
+            CREATE TABLE excuseTBL (
                 excuse_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 todo_id INTEGER NOT NULL,
                 excuse_reason TEXT NOT NULL,
-                FOREIGN KEY (todo_id) REFERENCES todo (todo_id) ON DELETE CASCADE
+                FOREIGN KEY (todo_id) REFERENCES todoTBL (todo_id) ON DELETE CASCADE
             )
         """)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        db!!.execSQL("DROP TABLE IF EXISTS excuse")
-        db.execSQL("DROP TABLE IF EXISTS todo")
+        // 기존 테이블 삭제 시에도 수정된 이름을 적용함.
+        db!!.execSQL("DROP TABLE IF EXISTS excuseTBL")
+        db.execSQL("DROP TABLE IF EXISTS todoTBL")
         onCreate(db)
     }
 }

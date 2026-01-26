@@ -29,7 +29,7 @@
                 <LinearLayout
                     android:id="@+id/r8t4gqp8zt8i"
                     android:layout_width="match_parent"
-                    android:layout_height="571dp"
+                    android:layout_height="602dp"
                     android:layout_marginHorizontal="32dp"
                     android:layout_marginBottom="22dp"
                     android:background="@drawable/cr37bffffff"
@@ -89,13 +89,14 @@
                         android:textColor="#3A3A3A"
                         android:textSize="17sp" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/rnssuh3hxzu"
+                        android:inputType="text"
                         android:layout_width="236dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="51dp"
                         android:layout_marginBottom="6dp"
-                        android:text="GURU2 시험 과제"
+                        android:text=" "
                         android:textColor="#3A3A3A"
                         android:textSize="17sp" />
 
@@ -225,12 +226,14 @@
                                 android:textSize="15sp" />
                         </LinearLayout>
 
-                        <TextView
+                        <EditText
                             android:id="@+id/rcubb5q6pz1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="22dp"
-                            android:text="8"
+                            android:text=""
+                            android:inputType="number"
+                            android:background="@null"
                             android:textColor="#3A3A3A"
                             android:textSize="17sp"
                             android:textStyle="bold" />
@@ -245,12 +248,14 @@
                             android:textSize="17sp"
                             android:textStyle="bold" />
 
-                        <TextView
+                        <EditText
                             android:id="@+id/r68a05rvfbvl"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="17dp"
-                            android:text="30"
+                            android:text=""
+                            android:inputType="number"
+                            android:background="@null"
                             android:textColor="#3A3A3A"
                             android:textSize="17sp"
                             android:textStyle="bold" />

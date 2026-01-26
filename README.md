@@ -14,6 +14,6 @@
 - DBManager : 데이터베이스 세팅
 - CommonUIHolder : 상단, 하단 UI 세팅
 
-액티비티 코드 파일
+액티비티 별 코드 파일
 - CalendarAdapter, CalendaerUtil, CalendarViewHolder : ListActivty 보조
 - ExcuseExtract : StatActivity 보조 

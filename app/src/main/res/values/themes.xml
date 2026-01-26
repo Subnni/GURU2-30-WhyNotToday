@@ -8,4 +8,5 @@
     <style name="Theme.WhyNotToday" parent="Base.Theme.WhyNotToday">
         <item name="android:fontFamily">@font/paperlogy_medium</item>
     </style>
+
 </resources>

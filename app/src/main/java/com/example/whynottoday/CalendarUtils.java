@@ -6,13 +6,14 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.YearMonth;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 
 public class CalendarUtils
 {
-    public static LocalDate selectedDate = LocalDate.now();
+    public static LocalDate selectedDate = LocalDate.now(ZoneId.of("Asia/Seoul"));
 
     public static String formattedDate(LocalDate date)
     {

@@ -1,15 +1,22 @@
 package com.example.whynottoday
 
+import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
+import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.whynottoday.CalendarUtils.daysInWeekArray
@@ -35,6 +42,10 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
     private lateinit var sqlitedb : SQLiteDatabase
     private lateinit var excuseLayout : LinearLayout
 
+    //사용 변수 - 스크롤 제어
+    private lateinit var listScrollView : ScrollView
+    private lateinit var navigationBar : ConstraintLayout
+    var scroll : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,13 +56,48 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
         dbManager.settingDB()
         sqlitedb = dbManager.readableDatabase
 
+        //공통 UI 초기화
+        val commonUIHandler = CommonUIHandler()
+        commonUIHandler.setupListener(this)
+
         //위젯 초기화
         initWidgets()
 
         //달력 및 리스트 세팅
         setWeekView()
+
+        //스크롤 방향 감지하여 하단 UI 제어
+        listScrollView = findViewById<ScrollView>(R.id.listScrollView)
+        navigationBar = findViewById<ConstraintLayout>(R.id.navigationBar)
+
+        listScrollView.getViewTreeObserver().addOnScrollChangedListener {
+            val scrollY = listScrollView.scrollY
+            //최소 10픽셀 이상 스크롤
+            if (scrollY > scroll && scrollY > 10) {
+                // 스크롤 다운 시 UI 숨기기
+                hideNavigation(navigationBar)
+            } else if (scrollY < scroll) {
+                // 스크롤 업 시 UI 보이기
+                showNavigation(navigationBar)
+            }
+            scroll = scrollY
+        }
+
     }
 
+    private fun hideNavigation(view: View) {
+        view.animate()
+            .translationY(view.height.toFloat())
+            .setDuration(300)
+            .start()
+    }
+
+    private fun showNavigation(view: View) {
+        view.animate()
+            .translationY(0f)
+            .setDuration(300)
+            .start()
+    }
     private fun initWidgets() {
         calendarRecyclerView = findViewById<RecyclerView?>(R.id.calendarRecyclerView)
         monthYearTextView = findViewById<TextView?>(R.id.monthYearTextView)
@@ -79,11 +125,12 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
     }
 
     fun previousWeekAction(view: View?) {
-        CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusWeeks(1)
+        CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusWeeks(1).with(java.time.DayOfWeek.SATURDAY)
         setWeekView()
     }
     fun nextWeekAction(view: View?) {
         CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusWeeks(1)
+            .with(java.time.temporal.TemporalAdjusters.previousOrSame(java.time.DayOfWeek.SUNDAY))
         setWeekView()
     }
 
@@ -147,6 +194,7 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
         } else {
             while(cursor.moveToNext()){
                 Log.d("DB_DEBUG", num.toString())
+                var excuseId = cursor.getInt(cursor.getColumnIndexOrThrow("excuse_id"))
                 var str_excuse = cursor.getString(cursor.getColumnIndexOrThrow("excuse_reason")).toString()
                 var str_todo = cursor.getString(cursor.getColumnIndexOrThrow("todo_name")).toString()
                 var isImportant = cursor.getInt(cursor.getColumnIndexOrThrow("is_important"))
@@ -179,6 +227,13 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
                 )
                 param3.setMargins(0,0,0,30)
                 excuseItem.layoutParams = param3
+
+                excuseItem.setOnClickListener {
+                    //임시로 메인액티비티 지정
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.putExtra("EXCUSE_ID", excuseId) // ID 전달
+                    startActivity(intent)
+                }
 
                 var innerLayout : LinearLayout = LinearLayout(this)
                 innerLayout.orientation= LinearLayout.VERTICAL
@@ -249,7 +304,6 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
                 num++
             }
         }
-
         cursor.close()
     }
 }

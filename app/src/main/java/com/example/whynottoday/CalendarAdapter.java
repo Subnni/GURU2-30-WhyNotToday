@@ -52,16 +52,23 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
         }
         else
         {
+            //토, 일요일 글자 색 변경
             holder.dayOfMonth.setText(String.valueOf(date.getDayOfMonth()));
             holder.dayOfWeek.setText(getDayOfWeekName(date));
-            if(holder.dayOfWeek.getText()=="일") {
+            if("일".equals(holder.dayOfWeek.getText().toString())) {
                 holder.dayOfWeek.setTextColor(Color.RED);
                 holder.dayOfMonth.setTextColor(Color.RED);
             }
-            if(holder.dayOfWeek.getText()=="토") {
+            if("토".equals(holder.dayOfWeek.getText().toString())) {
                 holder.dayOfWeek.setTextColor(Color.BLUE);
                 holder.dayOfMonth.setTextColor(Color.BLUE);
             }
+            //오늘 날짜 배경색 변경
+            LocalDate today = LocalDate.now();
+            if (date.equals(today)) {
+                holder.parentView.setBackgroundColor(Color.parseColor("#FFF9C4")); // 연노랑 등 오늘 표시용 색상
+            }
+
             //선택된 날짜의 배경색 변경
             if(date.equals(CalendarUtils.selectedDate))
                 holder.parentView.setBackgroundColor(Color.parseColor("#D1E7FF"));

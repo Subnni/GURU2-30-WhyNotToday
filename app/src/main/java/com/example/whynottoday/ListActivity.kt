@@ -319,7 +319,17 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
     }
 
     fun previousWeekAction(view: View?) {
-        CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusWeeks(1).with(java.time.DayOfWeek.SATURDAY)
+        //현재 선택된 날짜
+        val currentSelectedDate = CalendarUtils.selectedDate
+        if (currentSelectedDate.dayOfWeek == java.time.DayOfWeek.SATURDAY) {
+            // 토요일일 시 한 주 전으로 이동
+            CalendarUtils.selectedDate = currentSelectedDate.minusWeeks(1)
+        } else {
+            // 토요일이 아닐 시 토요일을 찾아 한 주 전으로 이동
+            CalendarUtils.selectedDate = currentSelectedDate
+                .with(java.time.DayOfWeek.SATURDAY)
+                .minusWeeks(1)
+        }
         setWeekView()
     }
     fun nextWeekAction(view: View?) {

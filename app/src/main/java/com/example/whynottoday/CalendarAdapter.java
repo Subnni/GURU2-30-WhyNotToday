@@ -119,6 +119,8 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
     {
         void onItemClick(int position, LocalDate date);
     }
+
+    //요일 한글로 변환
     private String getDayOfWeekName(LocalDate date) {
         switch (date.getDayOfWeek()) {
             case SUNDAY:    return "일";
@@ -131,5 +133,4 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
             default:        return "";
         }
     }
-
 }

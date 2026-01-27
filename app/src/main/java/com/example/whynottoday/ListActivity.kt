@@ -319,22 +319,28 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
     }
 
     fun previousWeekAction(view: View?) {
-        //현재 선택된 날짜
-        val currentSelectedDate = CalendarUtils.selectedDate
-        if (currentSelectedDate.dayOfWeek == java.time.DayOfWeek.SATURDAY) {
-            // 토요일일 시 한 주 전으로 이동
-            CalendarUtils.selectedDate = currentSelectedDate.minusWeeks(1)
+        val current = CalendarUtils.selectedDate
+
+        if (current.dayOfWeek == java.time.DayOfWeek.SUNDAY) {
+            //일요일 선택되어 있을 시 하루 전(토요일)로 이동
+            CalendarUtils.selectedDate = current.with(java.time.DayOfWeek.SATURDAY)
         } else {
-            // 토요일이 아닐 시 토요일을 찾아 한 주 전으로 이동
-            CalendarUtils.selectedDate = currentSelectedDate
-                .with(java.time.DayOfWeek.SATURDAY)
-                .minusWeeks(1)
+            //그 외 요일 선택되어 있을 시 일주일 전 토요일로 이동
+            CalendarUtils.selectedDate = current.minusWeeks(1).with(java.time.DayOfWeek.SATURDAY)
         }
         setWeekView()
     }
+
     fun nextWeekAction(view: View?) {
-        CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusWeeks(1)
-            .with(java.time.temporal.TemporalAdjusters.previousOrSame(java.time.DayOfWeek.SUNDAY))
+        val current = CalendarUtils.selectedDate
+
+        if (current.dayOfWeek == java.time.DayOfWeek.SUNDAY) {
+            //일요일 선택되어 있을 시 한 주 뒤로 이동
+            CalendarUtils.selectedDate = current.plusWeeks(1)
+        } else {
+            // 그 외 요일 선택되어 있을 시 무조건 다음 주 일요일로 이동
+            CalendarUtils.selectedDate = current.plusWeeks(1).with(java.time.DayOfWeek.SUNDAY)
+        }
         setWeekView()
     }
 

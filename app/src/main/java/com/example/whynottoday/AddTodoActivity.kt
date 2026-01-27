@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -22,15 +23,19 @@ class AddTodoActivity : AppCompatActivity() {
     private lateinit var tvAmPm: TextView
     private lateinit var edtHour: EditText
     private lateinit var edtMinute: EditText
+
+    private lateinit var btnAdd : LinearLayout
     private lateinit var btnSave: LinearLayout
     private lateinit var btnDelete: LinearLayout
+
+    private lateinit var btnDeleteSave : LinearLayout
     private lateinit var backImageBtn: ImageView
     private lateinit var tvTitle: TextView // "할 일 추가" 또는 "할 일 수정"
 
     private lateinit var dbManager: DBManager
     private lateinit var sqlDB: SQLiteDatabase
 
-    private var paperFont: Typeface? = null
+//    private var paperFont: Typeface? = null
     private var isImportant: Int = 1
     private var selectedDate: String? = ""
     private var todoId: Int = -1 // 💡 수정 모드 판별을 위한 ID 저장 변수
@@ -39,7 +44,7 @@ class AddTodoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_todo)
 
-        paperFont = ResourcesCompat.getFont(this, R.font.paperlogy_medium)
+//        paperFont = ResourcesCompat.getFont(this, R.font.paperlogy_medium)
         dbManager = DBManager(this, "WhyNotTodayDB.db", null, 1)
 
         // 위젯 연결
@@ -47,16 +52,17 @@ class AddTodoActivity : AppCompatActivity() {
         edtTodo = findViewById(R.id.todoEditText)
         btnImportant = findViewById(R.id.importantButton)
         btnGeneral = findViewById(R.id.generalButton)
-        btnAmPm = findViewById(R.id.rehavnku56k)
-        tvAmPm = findViewById(R.id.ru11nqmtmoas)
+        btnAmPm = findViewById(R.id.amPmButton)
+        tvAmPm = findViewById(R.id.amPmTextView)
         edtHour = findViewById(R.id.hourEditText)
         edtMinute = findViewById(R.id.minuteEditText)
-        btnSave = findViewById(R.id.rhq2iizm7imc)
-        btnDelete = findViewById(R.id.rkc4qxc3826i)
+        btnAdd = findViewById(R.id.addButton)
+        btnSave = findViewById(R.id.saveButton)
+        btnDelete = findViewById(R.id.deleteButton)
+        btnDeleteSave = findViewById(R.id.deleteSaveButton)
         backImageBtn = findViewById(R.id.backImageButton)
 
 //        applyGlobalFont()
-
 
         // 💡 Intent 데이터 수신 (날짜 또는 수정용 ID)
         selectedDate = intent.getStringExtra("selectedDate")
@@ -64,11 +70,15 @@ class AddTodoActivity : AppCompatActivity() {
 
         if (todoId != -1) {
             // 💡 [수정 모드] 기존 데이터 불러오기
+            btnAdd.visibility = View.GONE
+            btnDeleteSave.visibility = View.VISIBLE
             tvTitle.text = "할 일 수정"
 
             loadExistingTodo(todoId)
         } else {
             // [추가 모드] 기본 설정
+            btnAdd.visibility = View.VISIBLE
+            btnDeleteSave.visibility = View.GONE
             tvTitle.text = "할 일 추가"
             setImportance(1)
             edtHour.hint = "0"; edtMinute.hint = "00"
@@ -120,6 +130,7 @@ class AddTodoActivity : AppCompatActivity() {
 
         // 완료 버튼 (저장 또는 업데이트)
         btnSave.setOnClickListener { saveOrUpdateTodo() }
+        btnAdd.setOnClickListener { saveOrUpdateTodo() }
 
         // 💡 [삭제 기능] 수정 모드일 때 실제 삭제 수행
         btnDelete.setOnClickListener {
@@ -254,5 +265,8 @@ class AddTodoActivity : AppCompatActivity() {
 
         btnSave.isEnabled = !isInputEmpty && isTimeValid
         btnSave.alpha = if (btnSave.isEnabled) 1.0f else 0.5f
+
+        btnAdd.isEnabled = !isInputEmpty && isTimeValid
+        btnAdd.alpha = if (btnAdd.isEnabled) 1.0f else 0.5f
     }
 }

@@ -1,8 +1,10 @@
 package com.example.whynottoday
 
 import android.os.Bundle
+import android.view.ViewConfiguration
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.github.mikephil.charting.charts.LineChart
@@ -43,13 +45,13 @@ class StatActivity : AppCompatActivity() {
     private lateinit var statMenuImageButton: ImageButton
 
     // 현재 선택된 연/월 (일단 2025년 1월부터 시작)
-    private var currentYear = 2025
+    private var currentYear = 2026
     private var currentMonth = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_statistic)
-
+        
         val commonUIHandler = CommonUIHandler()
         commonUIHandler.setupListener(this)
 
@@ -295,7 +297,7 @@ class StatActivity : AppCompatActivity() {
     /** 나중에 DB에서 월별 통계 불러오도록 바꿀 함수 */
     private fun loadMonthlyStats(year: Int, month: Int): MonthlyStats {
 
-        val db = DBManager(this, "whyNotToday.db", null, 1).readableDatabase
+        val db = DBManager(this, "WhyNotTodayDB.db", null, 1).readableDatabase
 
         // 월 필터: yyyy-MM
         val monthKey = String.format("%04d-%02d", year, month)   // 예: 2025-01

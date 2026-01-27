@@ -110,51 +110,42 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
         excuseDensityTextView = findViewById<TextView?>(R.id.excuseDensityTextView2)
         excuseDensityBox = findViewById<View?>(R.id.excuseDensityBox)
         excuseLayout = findViewById(R.id.excuseLayout)
-
     }
 
+    //액티비티 onCreate시, 특정 날짜 클릭 시마다 호출되어 페이지 구성
     private fun setWeekView() {
+        //년, 월, 주차
         monthYearTextView.setText(monthYearFromDate(CalendarUtils.selectedDate))
         weekTextView.setText(weekFromDate(CalendarUtils.selectedDate))
-        val days: ArrayList<LocalDate?>? = daysInWeekArray(CalendarUtils.selectedDate)
 
+        //일주일
+        val days: ArrayList<LocalDate?>? = daysInWeekArray(CalendarUtils.selectedDate)
         val calendarAdapter = CalendarAdapter(days, this)
         val layoutManager: RecyclerView.LayoutManager =
             GridLayoutManager(getApplicationContext(), 7)
         calendarRecyclerView.setLayoutManager(layoutManager)
         calendarRecyclerView.setAdapter(calendarAdapter)
 
+        setSelectedDateAdapter() //선택한 날짜, 핑계 비율 세팅
+        setExcuseLayoutAdapter() //핑계 리스트 세팅
+    }
+
+
+    //추가, 수정, 삭제 후 다시 그리기
+    override fun onResume() {
+        super.onResume()
         setSelectedDateAdapter()
         setExcuseLayoutAdapter()
     }
 
-    fun previousWeekAction(view: View?) {
-        CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusWeeks(1).with(java.time.DayOfWeek.SATURDAY)
-        setWeekView()
-    }
-    fun nextWeekAction(view: View?) {
-        CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusWeeks(1)
-            .with(java.time.temporal.TemporalAdjusters.previousOrSame(java.time.DayOfWeek.SUNDAY))
-        setWeekView()
-    }
-
-    public override fun onItemClick(position: Int, date: LocalDate?) {
-        CalendarUtils.selectedDate = date
-        setWeekView()
-    }
-
-    //추가, 수정, 삭제 후 목록 다시 그리기
-    override fun onResume() {
-        super.onResume()
-        setExcuseLayoutAdapter()
-    }
-
-    //선택된 날의 날짜, 핑계 농도 출력
+    //선택된 날의 날짜, 핑계 비율 출력
     private fun setSelectedDateAdapter(){
+        //날짜
         val selectedDate = CalendarUtils.selectedDate
         val format = DateTimeFormatter.ofPattern("MM. dd (E)")
         selectedDateTextView.text = selectedDate.format(format)
 
+        //핑계 비율(안한 일 중 핑계 작성된 일/안한 일)
         var cursor : Cursor
         var query = "SELECT count(*) FROM todoTBL " +
                 "WHERE date_time LIKE '$selectedDate%' " +
@@ -176,6 +167,7 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
         excuseDensityTextView.text = "${minOf(excuseRatio, 100)}%"
         CalendarUtils.updateBoxColor(excuseDensityBox, excuseRatio)
     }
+
     //선택된 날의 핑계 리스트 출력
     private fun setExcuseLayoutAdapter() {
 
@@ -198,7 +190,7 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
             excuseLayout.addView(noneExcuseTextView)
         } else {
             while(cursor.moveToNext()){
-                Log.d("DB_DEBUG", num.toString())
+//                Log.d("DB_DEBUG", num.toString())
                 var todoId = cursor.getInt(cursor.getColumnIndexOrThrow("todo_id"))
                 var str_excuse = cursor.getString(cursor.getColumnIndexOrThrow("excuse_reason")).toString()
                 var str_todo = cursor.getString(cursor.getColumnIndexOrThrow("todo_name")).toString()
@@ -318,14 +310,27 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
                 excuseTextView.setPadding(0,10,0,0)
                 innerLayout.addView(excuseTextView)
 
-
                 excuseItem.addView((innerLayout))
                 excuseLayout.addView(excuseItem)
                 num++
             }
         }
-
-
         cursor.close()
     }
+
+    fun previousWeekAction(view: View?) {
+        CalendarUtils.selectedDate = CalendarUtils.selectedDate.minusWeeks(1).with(java.time.DayOfWeek.SATURDAY)
+        setWeekView()
+    }
+    fun nextWeekAction(view: View?) {
+        CalendarUtils.selectedDate = CalendarUtils.selectedDate.plusWeeks(1)
+            .with(java.time.temporal.TemporalAdjusters.previousOrSame(java.time.DayOfWeek.SUNDAY))
+        setWeekView()
+    }
+
+    public override fun onItemClick(position: Int, date: LocalDate?) {
+        CalendarUtils.selectedDate = date
+        setWeekView()
+    }
+
 }

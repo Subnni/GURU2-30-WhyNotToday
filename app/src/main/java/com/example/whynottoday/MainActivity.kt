@@ -1,7 +1,6 @@
 package com.example.whynottoday
 
 import android.content.Intent
-import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
 import android.graphics.Typeface
@@ -21,47 +20,48 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-    lateinit var tvDate: TextView
-    lateinit var tvDay: TextView
-    lateinit var btnAdd: ImageButton
+    lateinit var dateButton: TextView
+    lateinit var datButton: TextView
+    lateinit var addButton: ImageButton
     lateinit var containerImportant: LinearLayout
     lateinit var containerGeneral: LinearLayout
-    lateinit var ivPrev: ImageView
-    lateinit var ivNext: ImageView
+    lateinit var prevButton: ImageView
+    lateinit var nextButton: ImageView
 
     lateinit var dbManager: DBManager
     lateinit var sqlDB: SQLiteDatabase
-    private var paperFont: Typeface? = null
+//    private var paperFont: Typeface? = null
     private var currentCalendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //공통 UI 제어
         val commonUIHandler = CommonUIHandler()
         commonUIHandler.setupListener(this)
 
-        paperFont = ResourcesCompat.getFont(this, R.font.paperlogy_medium)
+//        paperFont = ResourcesCompat.getFont(this, R.font.paperlogy_medium)
 
-        tvDate = findViewById(R.id.dateTextView)
-        tvDay = findViewById(R.id.rroir2r69w0b)
-        btnAdd = findViewById(R.id.todoAddImageButton)
-        containerImportant = findViewById(R.id.rawakuad9k4)
-        containerGeneral = findViewById(R.id.rc2qf6n0zmml)
-        ivPrev = findViewById(R.id.r8xx1vippkv9)
-        ivNext = findViewById(R.id.r8ajnwmbi7si)
+        dateButton = findViewById(R.id.dateTextView)
+        datButton = findViewById(R.id.dayTextView)
+        addButton = findViewById(R.id.todoAddImageButton)
+        containerImportant = findViewById(R.id.containerImportant)
+        containerGeneral = findViewById(R.id.containerGeneral)
+        prevButton = findViewById(R.id.prevButton)
+        nextButton = findViewById(R.id.nextButton)
 
         // 섹션 타이틀 포함 폰트 적용
-        val staticTexts = listOf(tvDate, tvDay,
-            findViewById<TextView>(R.id.rn7lao1l6yv8), findViewById<TextView>(R.id.rapw2kdupbc8))
-        staticTexts.forEach { it.typeface = paperFont }
+//        val staticTexts = listOf(tvDate, tvDay,
+//            findViewById<TextView>(R.id.rn7lao1l6yv8), findViewById<TextView>(R.id.rapw2kdupbc8))
+//        staticTexts.forEach { it.typeface = paperFont }
 
         dbManager = DBManager(this, "WhyNotTodayDB.db", null, 1)
         updateScreenByDate()
 
-        ivPrev.setOnClickListener { currentCalendar.add(Calendar.DAY_OF_YEAR, -1); updateScreenByDate() }
-        ivNext.setOnClickListener { currentCalendar.add(Calendar.DAY_OF_YEAR, 1); updateScreenByDate() }
-        btnAdd.setOnClickListener {
+        prevButton.setOnClickListener { currentCalendar.add(Calendar.DAY_OF_YEAR, -1); updateScreenByDate() }
+        nextButton.setOnClickListener { currentCalendar.add(Calendar.DAY_OF_YEAR, 1); updateScreenByDate() }
+        addButton.setOnClickListener {
             val intent = Intent(this, AddTodoActivity::class.java)
             val dbFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             intent.putExtra("selectedDate", dbFormat.format(currentCalendar.time))
@@ -75,18 +75,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateScreenByDate() {
         val uiFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
-        tvDate.text = uiFormat.format(currentCalendar.time)
+        dateButton.text = uiFormat.format(currentCalendar.time)
         val dayFormat = SimpleDateFormat("EEEE", Locale.KOREA)
-        tvDay.text = dayFormat.format(currentCalendar.time)
+        datButton.text = dayFormat.format(currentCalendar.time)
 
         //오늘 날짜의 색상 변경
         val todayStr = uiFormat.format(Date())
         if (uiFormat.format(currentCalendar.time) == todayStr) {
-            tvDate.setTextColor(ContextCompat.getColor(this, R.color.blue_100))
-            tvDay.setTextColor(ContextCompat.getColor(this, R.color.blue_100))
+            dateButton.setTextColor(ContextCompat.getColor(this, R.color.blue_100))
+            datButton.setTextColor(ContextCompat.getColor(this, R.color.blue_100))
         } else {
-            tvDate.setTextColor(ContextCompat.getColor(this, R.color.gray))
-            tvDay.setTextColor(ContextCompat.getColor(this, R.color.gray))
+            dateButton.setTextColor(ContextCompat.getColor(this, R.color.gray))
+            datButton.setTextColor(ContextCompat.getColor(this, R.color.gray))
         }
         
         loadAndDisplayData(SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(currentCalendar.time))
@@ -129,7 +129,7 @@ class MainActivity : AppCompatActivity() {
         val tvEmpty = TextView(this).apply {
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
                 .apply { gravity = Gravity.CENTER_HORIZONTAL; topMargin = dpToPx(5f) }
-            text = "해야할 일이 없습니다."; textSize = 14f; setTextColor(Color.parseColor("#D7D7D7")); typeface = paperFont; gravity = Gravity.CENTER
+            text = "해야할 일이 없습니다."; textSize = 14f; setTextColor(Color.parseColor("#D7D7D7")); gravity = Gravity.CENTER
         }
         containerGeneral.addView(tvEmpty)
     }
@@ -176,8 +176,8 @@ class MainActivity : AppCompatActivity() {
 
             // 텍스트 영역 (동일)
             val textLayout = LinearLayout(this@MainActivity).apply { orientation = LinearLayout.VERTICAL; layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f) }
-            textLayout.addView(TextView(this@MainActivity).apply { text = time; textSize = 10f; typeface = paperFont; setTextColor(ContextCompat.getColor(this@MainActivity, R.color.gray_70)) })
-            textLayout.addView(TextView(this@MainActivity).apply { text = name; textSize = 15f; typeface = paperFont; setTextColor(ContextCompat.getColor(this@MainActivity, R.color.gray)); maxLines = 1 })
+            textLayout.addView(TextView(this@MainActivity).apply { text = time; textSize = 10f;  setTextColor(ContextCompat.getColor(this@MainActivity, R.color.gray_70)) })
+            textLayout.addView(TextView(this@MainActivity).apply { text = name; textSize = 15f;  setTextColor(ContextCompat.getColor(this@MainActivity, R.color.gray)); maxLines = 1 })
             addView(textLayout)
 
             if(done != 1){

@@ -81,7 +81,7 @@ class AddExcuseActivity : AppCompatActivity() {
             try {
                 val db = dbManager.readableDatabase
                 val cursor = db.rawQuery(
-                    "SELECT todo_name, date_time FROM todoTBL WHERE todo_id = ?",
+                    "SELECT todo_name, date_time, is_important FROM todoTBL WHERE todo_id = ?",
                     arrayOf(todoId.toString())
                 )
 

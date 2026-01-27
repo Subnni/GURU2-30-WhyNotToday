@@ -102,7 +102,7 @@
                     android:layout_height="18dp"
                     android:layout_marginEnd="10dp"
                     android:src="@drawable/star_image"
-                    android:tint="#7280FF" />
+ />
 
                 <!-- 시간 + 제목 -->
                 <LinearLayout
@@ -191,6 +191,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:gravity="top|start"
+                        android:background="@android:color/transparent"
                         android:hint="핑계를 입력해 주세요."
                         android:inputType="textMultiLine"
                         android:minLines="3"
@@ -218,6 +219,7 @@
                     android:background="@drawable/button_box_image"
                     android:clickable="true"
                     android:focusable="true"
+                    android:backgroundTint="@color/red"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:paddingVertical="10dp">
@@ -241,6 +243,7 @@
                     android:background="@drawable/button_box_image"
                     android:clickable="true"
                     android:focusable="true"
+                    android:backgroundTint="@color/gray"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:paddingVertical="10dp">

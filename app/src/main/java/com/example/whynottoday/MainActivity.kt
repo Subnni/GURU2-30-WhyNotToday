@@ -3,7 +3,6 @@ package com.example.whynottoday
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
-import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -15,7 +14,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -169,7 +167,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 if (done == 1) {
                     setBackgroundResource(if (important == 1) R.drawable.s7280ffsw2cr5b7280ff else R.drawable.s3a3a3asw2cr5b3a3a3a)
-                    addView(ImageView(this@MainActivity).apply { layoutParams = LinearLayout.LayoutParams(dpToPx(14f), dpToPx(10f)); setImageResource(R.drawable.vector9); scaleType = ImageView.ScaleType.FIT_XY })
+                    addView(ImageView(this@MainActivity).apply { layoutParams = LinearLayout.LayoutParams(dpToPx(14f), dpToPx(10f)); setImageResource(R.drawable.check_image); scaleType = ImageView.ScaleType.FIT_XY })
                 } else { setBackgroundResource(if (important == 1) R.drawable.s7280ffsw2cr5 else R.drawable.s3a3a3asw2cr5) }
             }
             addView(checkbox)
@@ -184,7 +182,7 @@ class MainActivity : AppCompatActivity() {
                 // 💡 [수정] 핑계 존재 여부에 따라 이모지 투명도 조절
                 addView(ImageView(this@MainActivity).apply {
                     layoutParams = LinearLayout.LayoutParams(dpToPx(24f), dpToPx(24f))
-                    setImageResource(if (important == 1) R.drawable.vector7 else R.drawable.vector8)
+                    setImageResource(if (important == 1) R.drawable.important_add_excuse_image else R.drawable.general_add_excuse_image)
 
                     // 💡 핑계가 있으면 진하게(1.0), 없으면 연하게(0.3) 표시
                     alpha = if (hasExcuse) 1.0f else 0.3f

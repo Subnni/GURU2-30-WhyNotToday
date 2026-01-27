@@ -334,9 +334,9 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
     fun nextWeekAction(view: View?) {
         val current = CalendarUtils.selectedDate
 
-        if (current.dayOfWeek == java.time.DayOfWeek.SUNDAY) {
-            //일요일 선택되어 있을 시 한 주 뒤로 이동
-            CalendarUtils.selectedDate = current.plusWeeks(1)
+        if (current.dayOfWeek == java.time.DayOfWeek.SATURDAY) {
+            //툐요일 선택되어 있을 시 하루 뒤(일요일)로 이동
+            CalendarUtils.selectedDate = current.with(java.time.DayOfWeek.SUNDAY)
         } else {
             // 그 외 요일 선택되어 있을 시 무조건 다음 주 일요일로 이동
             CalendarUtils.selectedDate = current.plusWeeks(1).with(java.time.DayOfWeek.SUNDAY)

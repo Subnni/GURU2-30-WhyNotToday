@@ -10,6 +10,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import java.util.*
 
@@ -23,7 +24,7 @@ class AddTodoActivity : AppCompatActivity() {
     private lateinit var edtMinute: EditText
     private lateinit var btnSave: LinearLayout
     private lateinit var btnDelete: LinearLayout
-    private lateinit var ivBack: ImageView
+    private lateinit var backImageBtn: ImageView
     private lateinit var tvTitle: TextView // "할 일 추가" 또는 "할 일 수정"
 
     private lateinit var dbManager: DBManager
@@ -42,19 +43,20 @@ class AddTodoActivity : AppCompatActivity() {
         dbManager = DBManager(this, "WhyNotTodayDB.db", null, 1)
 
         // 위젯 연결
-        tvTitle = findViewById(R.id.rbfovzr19n7)
-        edtTodo = findViewById(R.id.rnssuh3hxzu)
-        btnImportant = findViewById(R.id.r2x5e1dwd9lc)
-        btnGeneral = findViewById(R.id.rf94kuofpsb)
+        tvTitle = findViewById(R.id.titleTextView)
+        edtTodo = findViewById(R.id.todoEditText)
+        btnImportant = findViewById(R.id.importantButton)
+        btnGeneral = findViewById(R.id.generalButton)
         btnAmPm = findViewById(R.id.rehavnku56k)
         tvAmPm = findViewById(R.id.ru11nqmtmoas)
-        edtHour = findViewById(R.id.rcubb5q6pz1)
-        edtMinute = findViewById(R.id.r68a05rvfbvl)
+        edtHour = findViewById(R.id.hourEditText)
+        edtMinute = findViewById(R.id.minuteEditText)
         btnSave = findViewById(R.id.rhq2iizm7imc)
         btnDelete = findViewById(R.id.rkc4qxc3826i)
-        ivBack = findViewById(R.id.rdkgwl6s3cw9)
+        backImageBtn = findViewById(R.id.backImageButton)
 
-        applyGlobalFont()
+//        applyGlobalFont()
+
 
         // 💡 Intent 데이터 수신 (날짜 또는 수정용 ID)
         selectedDate = intent.getStringExtra("selectedDate")
@@ -63,16 +65,18 @@ class AddTodoActivity : AppCompatActivity() {
         if (todoId != -1) {
             // 💡 [수정 모드] 기존 데이터 불러오기
             tvTitle.text = "할 일 수정"
+
             loadExistingTodo(todoId)
         } else {
             // [추가 모드] 기본 설정
             tvTitle.text = "할 일 추가"
+            setImportance(1)
             edtHour.hint = "0"; edtMinute.hint = "00"
         }
 
         // 오전/오후 토글
         btnAmPm.setOnClickListener {
-            toggleAmPm(tvAmPm.text.toString() == "오전" )
+            toggleAmPm(tvAmPm.text.toString() != "오전" )
             updateSaveButtonState()
         }
 
@@ -90,6 +94,28 @@ class AddTodoActivity : AppCompatActivity() {
         edtHour.addTextChangedListener(watcher)
         edtMinute.addTextChangedListener(watcher)
 
+        //시간 선택 콤보박스 생성
+        edtHour.setOnClickListener { view ->
+            val popup = PopupMenu(this, view)
+            for(i in 1..12) popup.menu.add("$i")
+            popup.setOnMenuItemClickListener { item ->
+                edtHour.setText(item.title.toString())
+                updateSaveButtonState()
+                true
+            }
+            popup.show()
+        }
+        edtMinute.setOnClickListener { view ->
+            val popup = PopupMenu(this, view)
+            for(i in 0..55 step 10) popup.menu.add("$i")
+            popup.setOnMenuItemClickListener { item ->
+                edtMinute.setText(item.title.toString())
+                updateSaveButtonState()
+                true
+            }
+            popup.show()
+        }
+
         updateSaveButtonState()
 
         // 완료 버튼 (저장 또는 업데이트)
@@ -101,7 +127,8 @@ class AddTodoActivity : AppCompatActivity() {
             else finish() // 추가 모드에선 그냥 닫기
         }
 
-        ivBack.setOnClickListener { finish() }
+        backImageBtn.setOnClickListener { finish() }
+
     }
 
     // 💡 기존 데이터 로드 함수
@@ -141,23 +168,35 @@ class AddTodoActivity : AppCompatActivity() {
 
     private fun setImportance(important: Int) {
         isImportant = important
+
+        val bgImportant = btnImportant.background.mutate() as? android.graphics.drawable.GradientDrawable
+        val bgGeneral = btnGeneral.background.mutate() as? android.graphics.drawable.GradientDrawable
+
         if (important == 1) {
-            btnImportant.setBackgroundResource(R.drawable.s7280ffsw2cr24b7280ff33)
-            btnGeneral.setBackgroundResource(R.drawable.cr24beeeeee)
+            bgImportant?.setStroke(5, ContextCompat.getColor(this, R.color.header_blue))
+            bgImportant?.setColor(ContextCompat.getColor(this, R.color.blue_25))
+            bgGeneral?.setStroke(0, Color.TRANSPARENT)
+            bgGeneral?.setColor(Color.parseColor("#EEEEEE"))
+
         } else {
-            btnImportant.setBackgroundResource(R.drawable.cr24beeeeee)
-            btnGeneral.setBackgroundResource(R.drawable.s7280ffsw2cr24b7280ff33)
+            bgGeneral?.setStroke(5, ContextCompat.getColor(this, R.color.gray))
+            bgGeneral?.setColor(Color.parseColor("#EEEEEE"))
+            bgImportant?.setStroke(0, Color.TRANSPARENT)
+            bgImportant?.setColor(ContextCompat.getColor(this, R.color.blue_25))
         }
         updateSaveButtonState()
     }
 
     private fun toggleAmPm(isAm: Boolean) {
-        if (!isAm) {
-            tvAmPm.text = "오후"
-            btnAmPm.background.setTint(Color.parseColor("#D4D4D4"))
-        } else {
+
+        val bgAmPm = btnAmPm.background.mutate() as? android.graphics.drawable.GradientDrawable
+
+        if (isAm) {
             tvAmPm.text = "오전"
-            btnAmPm.background.setTintList(null)
+            bgAmPm?.setColor(Color.parseColor("#EEEEEE"))
+        } else {
+            tvAmPm.text = "오후"
+            bgAmPm?.setColor(Color.parseColor("#D4D4D4"))
         }
     }
 
@@ -197,15 +236,15 @@ class AddTodoActivity : AppCompatActivity() {
             Log.e("SQL_ERROR", "삭제 실패: ${e.message}") }
     }
 
-    private fun applyGlobalFont() {
-        val textViews = listOf(tvTitle, findViewById<TextView>(R.id.r6jehds0ft7), edtTodo,
-            findViewById<TextView>(R.id.rg8jbp1vvfq), findViewById<TextView>(R.id.r5u2i8xogh5x),
-            findViewById<TextView>(R.id.r0z5ebi04adah), findViewById<TextView>(R.id.rp7p8of08czm),
-            tvAmPm, edtHour, findViewById<TextView>(R.id.rfdb9m3k303b), edtMinute,
-            findViewById<TextView>(R.id.rclpptr0jwel), findViewById<TextView>(R.id.roycse14q1zj),
-            findViewById<TextView>(R.id.r73nmubdgpy))
-        textViews.forEach { it?.typeface = paperFont }
-    }
+//    private fun applyGlobalFont() {
+//        val textViews = listOf(tvTitle, findViewById<TextView>(R.id.r6jehds0ft7), edtTodo,
+//            findViewById<TextView>(R.id.rg8jbp1vvfq), findViewById<TextView>(R.id.r5u2i8xogh5x),
+//            findViewById<TextView>(R.id.r0z5ebi04adah), findViewById<TextView>(R.id.rp7p8of08czm),
+//            tvAmPm, edtHour, findViewById<TextView>(R.id.rfdb9m3k303b), edtMinute,
+//            findViewById<TextView>(R.id.rclpptr0jwel), findViewById<TextView>(R.id.roycse14q1zj),
+//            findViewById<TextView>(R.id.r73nmubdgpy))
+//        textViews.forEach { it?.typeface = paperFont }
+//    }
 
     private fun updateSaveButtonState() {
         val h = edtHour.text.toString().toIntOrNull() ?: -1

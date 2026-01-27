@@ -1,224 +1,207 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#FFFFFF"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ScrollView
         android:id="@+id/r606yvitaeu7"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="#FFFFFF">
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
         <LinearLayout
+            android:id="@+id/r67neta4u04r"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:background="@color/gray"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="110dp">
 
+            <!--바깥 박스-->
             <LinearLayout
-                android:id="@+id/r67neta4u04r"
+                android:id="@+id/r8t4gqp8zt8i"
                 android:layout_width="match_parent"
-                android:layout_height="795dp"
-                android:background="#CC000000"
-                android:gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="35dp"
+                android:layout_marginBottom="50dp"
+                android:background="@drawable/main_box"
+                android:elevation="10dp"
                 android:orientation="vertical"
-                android:paddingTop="110dp">
+                android:paddingTop="20dp">
 
+                <!--상단 타이틀, 뒤로가기 버튼-->
                 <LinearLayout
-                    android:id="@+id/r8t4gqp8zt8i"
+                    android:id="@+id/r52ndj1ba1m"
                     android:layout_width="match_parent"
-                    android:layout_height="602dp"
-                    android:layout_marginHorizontal="32dp"
-                    android:layout_marginBottom="22dp"
-                    android:background="@drawable/main_box"
-                    android:elevation="10dp"
-                    android:orientation="vertical"
-                    android:paddingTop="20dp">
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="21dp"
+                    android:layout_marginBottom="39dp"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:id="@+id/r52ndj1ba1m"
-                        android:layout_width="match_parent"
+                    <View
+                        android:id="@+id/hiddenView"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:scaleType="fitXY" />
+
+                    <TextView
+                        android:id="@+id/titleTextView"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="21dp"
-                        android:layout_marginBottom="39dp"
-                        android:orientation="horizontal">
+                        android:layout_marginTop="15dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/paperlogy_bold"
+                        android:gravity="center"
+                        android:text="할 일 추가"
+                        android:textAlignment="center"
+                        android:textColor="@color/gray"
+                        android:textSize="22sp" />
 
-                        <LinearLayout
-                            android:id="@+id/r0j35uq84peas"
-                            android:layout_width="29dp"
-                            android:layout_height="29dp"
-                            android:orientation="vertical"></LinearLayout>
+                    <ImageButton
+                        android:id="@+id/backImageButton"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@android:color/transparent"
+                        android:padding="0dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/back_button" />
+                </LinearLayout>
 
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
+                <!--content 영역(안쪽 박스)-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginHorizontal="40dp">
 
-                        <TextView
-                            android:id="@+id/rbfovzr19n7"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:text="할 일 추가"
-                            android:textColor="#3A3A3A"
-                            android:textSize="22sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-
-                        <ImageView
-                            android:id="@+id/rdkgwl6s3cw9"
-                            android:layout_width="29dp"
-                            android:layout_height="29dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/vector6" />
-                    </LinearLayout>
-
+                    <!--todo 작성-->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="48dp"
-                        android:layout_marginBottom="11dp"
+                        android:layout_marginBottom="25dp"
                         android:orientation="horizontal">
+
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/paperlogy_medium"
                             android:text="해야할 일은 "
-                            android:textColor="#3A3A3A"
-                            android:textSize="17sp"
-                            android:fontFamily="@font/paperlogy_medium" />
+                            android:textColor="@color/gray"
+                            android:textSize="17sp" />
+
                         <TextView
                             android:id="@+id/r6jehds0ft7"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/paperlogy_bold"
                             android:text="무엇인가요?"
-                            android:textColor="#4200FF"
-                            android:textSize="17sp"
-                            android:textStyle="bold"
-                            android:fontFamily="@font/paperlogy_medium" />
+                            android:textColor="@color/header_blue"
+                            android:textSize="17sp" />
                     </LinearLayout>
-
                     <EditText
-                        android:id="@+id/rnssuh3hxzu"
-                        android:inputType="text"
-                        android:layout_width="236dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="51dp"
-                        android:layout_marginBottom="6dp"
-                        android:text=" "
-                        android:textColor="#3A3A3A"
-                        android:textSize="17sp" />
-
-                    <LinearLayout
-                        android:id="@+id/riq1egs6noz8"
+                        android:id="@+id/todoEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="33dp"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
+                        android:layout_marginBottom="30dp"
+                        android:background="@drawable/edittext_line"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:text=" "
+                        android:textColor="@color/gray"
+                        android:textSize="17sp" />
 
-                        <LinearLayout
-                            android:id="@+id/r0yzbwrbpkci"
-                            android:layout_width="260dp"
-                            android:layout_height="2dp"
-                            android:background="#3A3A3A"
-                            android:orientation="vertical"></LinearLayout>
-                    </LinearLayout>
-
+                    <!--중요도 선택-->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="48dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="20dp"
                         android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="해야할 일은 "
-                            android:textColor="#3A3A3A"
-                            android:textSize="17sp"
-                            android:fontFamily="@font/paperlogy_medium" />
+                            android:textColor="@color/gray"
+                            android:textSize="17sp" />
+
                         <TextView
                             android:id="@+id/rg8jbp1vvfq"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="얼마나 중요 "
-                            android:textColor="#4200FF"
-                            android:textSize="17sp"
-                            android:textStyle="bold"
-                            android:fontFamily="@font/paperlogy_medium" />
+                            android:fontFamily="@font/paperlogy_bold"
+                            android:text="얼마나 중요"
+                            android:textColor="@color/header_blue"
+                            android:textSize="17sp" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="한가요?"
-                            android:textColor="#3A3A3A"
-                            android:textSize="17sp"
-                            android:fontFamily="@font/paperlogy_medium" />
+                            android:textColor="@color/gray"
+                            android:textSize="17sp" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/r2x5e1dwd9lc"
+                        android:id="@+id/importantButton"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="48dp"
+                        android:layout_height="match_parent"
                         android:layout_marginBottom="7dp"
-                        android:background="@drawable/s7280ffsw2cr24b7280ff33"
+                        android:background="@drawable/button_box_image"
                         android:clickable="true"
                         android:focusable="true"
+                        android:focusedByDefault="true"
                         android:gravity="center"
                         android:orientation="horizontal"
-                        android:paddingVertical="9dp">
+                        android:paddingVertical="13dp">
 
                         <ImageView
                             android:id="@+id/rc8yhn6wsyn"
-                            android:layout_width="16dp"
+                            android:layout_width="15dp"
                             android:layout_height="15dp"
                             android:layout_marginEnd="10dp"
                             android:scaleType="fitXY"
-                            app:tint="@color/blue_100"
-                            android:src="@drawable/star_image" />
+                            android:src="@drawable/star_image"
+                            app:tint="@color/blue_100" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="오늘 해야 할 "
-                                android:textColor="#3A3A3A"
-                                android:textSize="13sp"
-                                android:fontFamily="@font/paperlogy_medium" />
+                                android:textColor="@color/gray"
+                                android:textSize="13sp" />
+
                             <TextView
                                 android:id="@+id/r5u2i8xogh5x"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/paperlogy_bold"
                                 android:text="중요한 일"
-                                android:textColor="#7280FF"
-                                android:textSize="13sp"
-                                android:textStyle="bold"
-                                android:fontFamily="@font/paperlogy_medium" />
+                                android:layout_marginEnd="10dp"
+                                android:textColor="@color/blue_100"
+                                android:textSize="13sp" />
                         </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/rf94kuofpsb"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/generalButton"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="48dp"
                         android:layout_marginBottom="35dp"
-                        android:background="@drawable/cr24beeeeee"
+                        android:background="@drawable/button_box_image"
                         android:clickable="true"
                         android:focusable="true"
-                        android:gravity="center_vertical"
+                        android:gravity="center"
                         android:orientation="horizontal"
-                        android:paddingHorizontal="41dp"
-                        android:paddingVertical="9dp">
+
+                        android:paddingVertical="13dp">
 
                         <ImageView
                             android:id="@+id/r0k371okwgv6"
@@ -232,29 +215,31 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/paperlogy_medium"
                                 android:text="중요하지는 않지만 "
-                                android:textColor="#3A3A3A"
-                                android:textSize="13sp"
-                                android:fontFamily="@font/paperlogy_medium" />
+                                android:textColor="@color/gray"
+                                android:textSize="13sp" />
+
                             <TextView
                                 android:id="@+id/r0z5ebi04adah"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/paperlogy_bold"
                                 android:text="해야할 일"
-                                android:textColor="#3A3A3A"
-                                android:textSize="13sp"
-                                android:textStyle="bold"
-                                android:fontFamily="@font/paperlogy_medium" />
+                                android:layout_marginEnd="10dp"
+                                android:textColor="@color/gray"
+                                android:textSize="13sp" />
                         </LinearLayout>
                     </LinearLayout>
 
+                    <!--시간 선택-->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="48dp"
                         android:layout_marginBottom="13dp"
                         android:orientation="horizontal">
 
@@ -262,34 +247,34 @@
                             android:id="@+id/rp7p8of08czm"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/paperlogy_bold"
                             android:text="몇 시"
-                            android:textColor="#4200FF"
-                            android:textSize="17sp"
-                            android:textStyle="bold"
-                            android:fontFamily="@font/paperlogy_medium" />
+                            android:textColor="@color/header_blue"
+                            android:textSize="17sp" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="에 하실 예정인가요?"
-                            android:textColor="#3A3A3A"
-                            android:textSize="17sp"
-                            android:fontFamily="@font/paperlogy_medium" />
+                            android:textColor="@color/gray"
+                            android:textSize="17sp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/rv67jayv548h"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="48dp"
                         android:gravity="center_vertical"
+                        android:layout_marginBottom="30dp"
                         android:orientation="horizontal">
 
+                        <!--오전/오후 토글-->
                         <LinearLayout
                             android:id="@+id/rehavnku56k"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="36dp"
-                            android:background="@drawable/cr24beeeeee"
+                            android:layout_marginEnd="20dp"
+                            android:background="@drawable/button_box_image"
                             android:clickable="true"
                             android:focusable="true"
                             android:orientation="vertical"
@@ -305,98 +290,67 @@
                                 android:textSize="15sp" />
                         </LinearLayout>
 
+
                         <EditText
-                            android:id="@+id/rcubb5q6pz1"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/hourEditText"
+                            android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="22dp"
-                            android:text=""
+                            android:layout_marginEnd="5dp"
+                            android:background="@drawable/edittext_line"
                             android:inputType="number"
-                            android:background="@null"
-                            android:textColor="#3A3A3A"
+                            android:text=""
+                            android:textColor="@color/gray"
                             android:textSize="17sp"
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/rfdb9m3k303b"
+                            android:id="@+id/hourTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="29dp"
+                            android:layout_marginEnd="20dp"
+                            android:fontFamily="@font/paperlogy_semibold"
                             android:text="시"
-                            android:textColor="#3A3A3A"
-                            android:textSize="17sp"
-                            android:textStyle="bold" />
+                            android:textColor="@color/gray"
+                            android:textSize="17sp" />
 
                         <EditText
-                            android:id="@+id/r68a05rvfbvl"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/minuteEditText"
+                            android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="17dp"
-                            android:text=""
+                            android:layout_marginEnd="5dp"
+                            android:background="@drawable/edittext_line"
                             android:inputType="number"
-                            android:background="@null"
+                            android:text=""
                             android:textColor="#3A3A3A"
                             android:textSize="17sp"
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/rclpptr0jwel"
+                            android:id="@+id/minuteTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/paperlogy_semibold"
                             android:text="분"
-                            android:textColor="#3A3A3A"
-                            android:textSize="17sp"
-                            android:textStyle="bold" />
+                            android:textColor="@color/gray"
+                            android:textSize="17sp" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/rkkgvpd87ipe"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="63dp"
-                        android:layout_marginBottom="46dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:id="@+id/rdl7s99cuyn"
-                            android:layout_width="40dp"
-                            android:layout_height="2dp"
-                            android:layout_marginEnd="39dp"
-                            android:orientation="vertical"></LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/r31beg7vvty9"
-                            android:layout_width="40dp"
-                            android:layout_height="2dp"
-                            android:layout_marginEnd="39dp"
-                            android:background="#3A3A3A"
-                            android:orientation="vertical"></LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/rkszjebjx8g"
-                            android:layout_width="40dp"
-                            android:layout_height="2dp"
-                            android:background="#3A3A3A"
-                            android:orientation="vertical"></LinearLayout>
-                    </LinearLayout>
-
+                    <!--하단 버튼-->
                     <LinearLayout
                         android:id="@+id/rrj1r9tyyq9b"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="39dp"
-                        android:layout_marginBottom="15dp"
-                        android:gravity="center_vertical"
+                        android:layout_marginBottom="40dp"
                         android:orientation="horizontal">
 
                         <LinearLayout
                             android:id="@+id/rkc4qxc3826i"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="12dp"
+                            android:layout_marginEnd="10dp"
                             android:layout_weight="1"
-                            android:background="@drawable/cr25bee5656"
+                            android:background="@drawable/button_box_image"
+                            android:backgroundTint="@color/red"
                             android:clickable="true"
                             android:focusable="true"
                             android:gravity="center_horizontal"
@@ -418,7 +372,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:background="@drawable/cr25b3a3a3a"
+                            android:background="@drawable/button_box_image"
+                            android:backgroundTint="@color/gray"
                             android:clickable="true"
                             android:focusable="true"
                             android:gravity="center_horizontal"
@@ -436,14 +391,8 @@
                         </LinearLayout>
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/rq505j7nmbs"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical"></LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
+                </LinearLayout><!--안쪽 박스-->
+            </LinearLayout><!--바깥 박스-->
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

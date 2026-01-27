@@ -75,7 +75,7 @@
                     android:id="@+id/btnClose"
                     android:layout_width="29dp"
                     android:layout_height="29dp"
-                    android:src="@drawable/vector6"
+                    android:src="@drawable/back_button"
                     android:scaleType="fitXY" />
             </LinearLayout>
 
@@ -179,7 +179,7 @@
                     android:id="@+id/layoutExcuseInputContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/cr24beeeeee"
+                    android:background="@drawable/button_box_image"
                     android:orientation="vertical"
                     android:paddingTop="15dp"
                     android:paddingLeft="25dp"
@@ -215,7 +215,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginEnd="12dp"
-                    android:background="@drawable/cr25bee5656"
+                    android:background="@drawable/button_box_image"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center_horizontal"
@@ -238,7 +238,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/cr25b3a3a3a"
+                    android:background="@drawable/button_box_image"
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center_horizontal"

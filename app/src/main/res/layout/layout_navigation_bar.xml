@@ -1,54 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <!--하단 네비게이션 바-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="85dp"
         android:background="@drawable/navigation_box"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingStart="30dp"
-        android:paddingEnd="30dp"
         android:elevation="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="43dp"
+        android:paddingEnd="43dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <ImageButton
-            android:id="@+id/listMenuImageButton"
-            android:layout_width="20dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/list_menu_image"
+        <!--홈-->
+        <LinearLayout
+            android:id="@+id/homeMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:scaleType="fitCenter"
-            app:tint="#d7d7d7"/>
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@color/transparent">
 
-        <ImageButton
-            android:id="@+id/homeMenuImageButton"
-            android:layout_width="20dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/home_menu_image"
+            <ImageButton
+                android:id="@+id/homeMenuImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                android:src="@drawable/home_menu_image"
+                app:tint="@color/menu_item_color"
+
+                android:duplicateParentState="true"
+                android:clickable="false"
+                android:focusable="false" />
+
+            <TextView
+                android:id="@+id/homeMenuTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="홈"
+                android:duplicateParentState="true"
+                android:textColor="@color/menu_item_color"
+                android:textSize="9sp" />
+
+        </LinearLayout>
+
+        <!--통계-->
+        <LinearLayout
+            android:id="@+id/statMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:scaleType="fitCenter"
-            app:tint="#d7d7d7"/>
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@color/transparent">
 
-        <ImageButton
-            android:id="@+id/statMenuImageButton"
-            android:layout_width="20dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/stat_menu_image"
+            <ImageButton
+                android:id="@+id/statMenuImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                android:src="@drawable/stat_menu_image"
+                android:duplicateParentState="true"
+                android:clickable="false"
+                android:focusable="false"
+                app:tint="@color/menu_item_color" />
+
+            <TextView
+                android:id="@+id/statMenuTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="통계"
+                android:duplicateParentState="true"
+                android:textColor="@color/menu_item_color"
+                android:textSize="9sp" />
+        </LinearLayout>
+
+        <!--설정1-->
+        <LinearLayout
+            android:id="@+id/settingMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:scaleType="fitCenter"
-            app:tint="#d7d7d7"/>
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@color/transparent">
 
+            <ImageButton
+                android:id="@+id/listMenuImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                android:src="@drawable/setting_menu_image"
+                android:duplicateParentState="true"
+                android:clickable="false"
+                android:focusable="false"
+                app:tint="@color/menu_item_color" />
+
+            <TextView
+                android:id="@+id/listMenuTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="설정1"
+                android:duplicateParentState="true"
+                android:textColor="@color/menu_item_color"
+                android:textSize="9sp" />
+
+        </LinearLayout>
+
+        <!--설정2-->
+        <LinearLayout
+            android:id="@+id/setting2Menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@color/transparent">
+
+            <ImageButton
+                android:id="@+id/list2MenuImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                android:src="@drawable/setting_menu_image"
+                android:duplicateParentState="true"
+                android:clickable="false"
+                android:focusable="false"
+                app:tint="@color/menu_item_color" />
+
+            <TextView
+                android:id="@+id/list2MenuTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="설정2"
+                android:duplicateParentState="true"
+                android:textColor="@color/menu_item_color"
+                android:textSize="9sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="617dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

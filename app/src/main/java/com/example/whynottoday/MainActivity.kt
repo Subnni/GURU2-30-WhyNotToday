@@ -174,7 +174,7 @@ class MainActivity : AppCompatActivity() {
 
             // 텍스트 영역 (동일)
             val textLayout = LinearLayout(this@MainActivity).apply { orientation = LinearLayout.VERTICAL; layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f) }
-            textLayout.addView(TextView(this@MainActivity).apply { text = time; textSize = 10f;  setTextColor(ContextCompat.getColor(this@MainActivity, R.color.gray_70)) })
+            textLayout.addView(TextView(this@MainActivity).apply { text = time; textSize = 10f;  setTextColor(ContextCompat.getColor(this@MainActivity, R.color.lightgray)) })
             textLayout.addView(TextView(this@MainActivity).apply { text = name; textSize = 15f;  setTextColor(ContextCompat.getColor(this@MainActivity, R.color.gray)); maxLines = 1 })
             addView(textLayout)
 

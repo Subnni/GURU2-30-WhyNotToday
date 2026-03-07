@@ -275,7 +275,7 @@ class ListActivity : AppCompatActivity(), CalendarAdapter.OnItemListener {
                 //시간 텍스트뷰 생성
                 var timeTextView : TextView = TextView(this)
                 timeTextView.text = str_timeFormatted
-                timeTextView.setTextColor(ContextCompat.getColor(this, R.color.gray_70))
+                timeTextView.setTextColor(ContextCompat.getColor(this, R.color.lightgray))
                 timeTextView.textSize=10F
                 todoLeftLayout.addView(timeTextView)
 

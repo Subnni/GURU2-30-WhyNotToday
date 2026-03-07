@@ -397,50 +397,57 @@
     </ScrollView>
 
     <!-- 하단 네비게이션 바 -->
-    <LinearLayout
+
+    <!--네비게이션 바-->
+    <include
         android:id="@+id/navigationBar"
-        android:layout_width="0dp"
-        android:layout_height="75dp"
-        android:background="@drawable/navigation_box"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingStart="30dp"
-        android:paddingEnd="30dp"
-        android:elevation="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:outlineProvider="background"
+        layout="@layout/layout_navigation_bar" />
 
-        <ImageButton
-            android:id="@+id/listMenuImageButton"
-            android:layout_width="20dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/list_menu_image"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            app:tint="#d7d7d7"/>
+<!--    <LinearLayout-->
+<!--        android:id="@+id/navigationBar"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="75dp"-->
+<!--        android:background="@drawable/navigation_box"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:gravity="center_vertical"-->
+<!--        android:paddingStart="30dp"-->
+<!--        android:paddingEnd="30dp"-->
+<!--        android:elevation="20dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent">-->
 
-        <ImageButton
-            android:id="@+id/homeMenuImageButton"
-            android:layout_width="20dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/home_menu_image"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            app:tint="#d7d7d7"/>
+<!--        <ImageButton-->
+<!--            android:id="@+id/listMenuImageButton"-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:background="?attr/selectableItemBackgroundBorderless"-->
+<!--            android:src="@drawable/list_menu_image"-->
+<!--            android:layout_weight="1"-->
+<!--            android:scaleType="fitCenter"-->
+<!--            app:tint="#d7d7d7"/>-->
 
-        <ImageButton
-            android:id="@+id/statMenuImageButton"
-            android:layout_width="20dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/stat_menu_image"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            app:tint="#d7d7d7"/>
+<!--        <ImageButton-->
+<!--            android:id="@+id/homeMenuImageButton"-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:background="?attr/selectableItemBackgroundBorderless"-->
+<!--            android:src="@drawable/home_menu_image"-->
+<!--            android:layout_weight="1"-->
+<!--            android:scaleType="fitCenter"-->
+<!--            app:tint="#d7d7d7"/>-->
 
-    </LinearLayout>
+<!--        <ImageButton-->
+<!--            android:id="@+id/statMenuImageButton"-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:background="?attr/selectableItemBackgroundBorderless"-->
+<!--            android:src="@drawable/stat_menu_image"-->
+<!--            android:layout_weight="1"-->
+<!--            android:scaleType="fitCenter"-->
+<!--            app:tint="#d7d7d7"/>-->
+
+<!--    </LinearLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

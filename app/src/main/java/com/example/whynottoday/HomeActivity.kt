@@ -17,7 +17,7 @@ import androidx.core.content.ContextCompat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
     lateinit var dateButton: TextView
     lateinit var datButton: TextView
     lateinit var addButton: ImageButton
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_home)
 
         //공통 UI 제어
         val commonUIHandler = CommonUIHandler()
@@ -67,6 +67,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //새로고침 시마다 호출(날짜 데이터 최신화)
     override fun onResume() { super.onResume(); updateScreenByDate() }
 
     private fun dpToPx(dp: Float): Int = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics).toInt()
@@ -151,12 +152,12 @@ class MainActivity : AppCompatActivity() {
             setBackgroundResource(if (important == 1) R.drawable.cr8bebedff99 else R.drawable.cr8bd7d7d74d)
 
             setOnClickListener {
-                val intent = Intent(this@MainActivity, AddTodoActivity::class.java)
+                val intent = Intent(this@HomeActivity, AddTodoActivity::class.java)
                 intent.putExtra("TODO_ID", id); startActivity(intent)
             }
 
             // 체크박스 (동일)
-            val checkbox = LinearLayout(this@MainActivity).apply {
+            val checkbox = LinearLayout(this@HomeActivity).apply {
                 layoutParams = LinearLayout.LayoutParams(dpToPx(24f), dpToPx(24f)).apply { marginEnd = dpToPx(12f) }
                 gravity = Gravity.CENTER
                 setOnClickListener {
@@ -167,20 +168,20 @@ class MainActivity : AppCompatActivity() {
                 }
                 if (done == 1) {
                     setBackgroundResource(if (important == 1) R.drawable.s7280ffsw2cr5b7280ff else R.drawable.s3a3a3asw2cr5b3a3a3a)
-                    addView(ImageView(this@MainActivity).apply { layoutParams = LinearLayout.LayoutParams(dpToPx(14f), dpToPx(10f)); setImageResource(R.drawable.check_image); scaleType = ImageView.ScaleType.FIT_XY })
+                    addView(ImageView(this@HomeActivity).apply { layoutParams = LinearLayout.LayoutParams(dpToPx(14f), dpToPx(10f)); setImageResource(R.drawable.check_image); scaleType = ImageView.ScaleType.FIT_XY })
                 } else { setBackgroundResource(if (important == 1) R.drawable.s7280ffsw2cr5 else R.drawable.s3a3a3asw2cr5) }
             }
             addView(checkbox)
 
             // 텍스트 영역 (동일)
-            val textLayout = LinearLayout(this@MainActivity).apply { orientation = LinearLayout.VERTICAL; layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f) }
-            textLayout.addView(TextView(this@MainActivity).apply { text = time; textSize = 10f;  setTextColor(ContextCompat.getColor(this@MainActivity, R.color.lightgray)) })
-            textLayout.addView(TextView(this@MainActivity).apply { text = name; textSize = 15f;  setTextColor(ContextCompat.getColor(this@MainActivity, R.color.gray)); maxLines = 1 })
+            val textLayout = LinearLayout(this@HomeActivity).apply { orientation = LinearLayout.VERTICAL; layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f) }
+            textLayout.addView(TextView(this@HomeActivity).apply { text = time; textSize = 10f;  setTextColor(ContextCompat.getColor(this@HomeActivity, R.color.lightgray)) })
+            textLayout.addView(TextView(this@HomeActivity).apply { text = name; textSize = 15f;  setTextColor(ContextCompat.getColor(this@HomeActivity, R.color.gray)); maxLines = 1 })
             addView(textLayout)
 
             if(done != 1){
                 // 💡 [수정] 핑계 존재 여부에 따라 이모지 투명도 조절
-                addView(ImageView(this@MainActivity).apply {
+                addView(ImageView(this@HomeActivity).apply {
                     layoutParams = LinearLayout.LayoutParams(dpToPx(24f), dpToPx(24f))
                     setImageResource(if (important == 1) R.drawable.important_add_excuse_image else R.drawable.general_add_excuse_image)
 
@@ -188,7 +189,7 @@ class MainActivity : AppCompatActivity() {
                     alpha = if (hasExcuse) 1.0f else 0.3f
 
                     setOnClickListener {
-                        val intent = Intent(this@MainActivity, AddExcuseActivity::class.java)
+                        val intent = Intent(this@HomeActivity, AddExcuseActivity::class.java)
                         intent.putExtra("TODO_ID", id); startActivity(intent)
                     }
                 })

@@ -6,7 +6,9 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/white"
-    android:elevation="10dp"
+    android:elevation="3dp"
+    android:outlineSpotShadowColor="#50000000"
+    android:outlineAmbientShadowColor="#50000000"
     android:id="@+id/headerLayout">
 
     <!--상단 헤더-->

@@ -6,8 +6,8 @@ import android.graphics.Rect
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.Switch
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -36,7 +36,7 @@ class CommonUIHandler {
     private lateinit var settingMenu : LinearLayout
     private lateinit var setting2Menu : LinearLayout
 
-    public fun setupListener(activity : Activity){
+    public fun setupListener(activity : AppCompatActivity) {
 
         //edge-to-edge 하단 UI 겹침 이슈 해결
         val rootView = activity.window.decorView.findViewById<View>(android.R.id.content)
@@ -44,7 +44,7 @@ class CommonUIHandler {
 
         //statActivity에서 헤더 elevation 제거
         header = activity.findViewById(R.id.header)
-        if(activity is StatActivity)
+        if (activity is StatActivity)
             header.elevation = 0f
 
         //헤더 리스너 연결
@@ -66,19 +66,22 @@ class CommonUIHandler {
         menuImageView = activity.findViewById(R.id.menuImageView)
         menutextView = activity.findViewById(R.id.menutextView)
 
-        when(activity){
+        when (activity) {
             is MainActivity -> {
                 menuImageView.setImageResource(R.drawable.home_menu_image)
                 menutextView.setText("홈")
             }
+
             is StatActivity -> {
                 menuImageView.setImageResource(R.drawable.stat_menu_image)
                 menutextView.setText("통계")
             }
+
             is SettingActivity -> {
                 menuImageView.setImageResource(R.drawable.setting_menu_image)
                 menutextView.setText("설정1")
             }
+
             is Setting2Activity -> {
                 menuImageView.setImageResource(R.drawable.setting_menu_image)
                 menutextView.setText("설정2")
@@ -99,19 +102,20 @@ class CommonUIHandler {
         toggleImageView = activity.findViewById(R.id.toggleImageView)
         toggleTextView = activity.findViewById(R.id.toggleTextView)
 
-
         toggleSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
 
-            val targetColor = ContextCompat.getColor(toggleImageView.context, if(isChecked) R.color.red else R.color.header_blue)
-            val targetImage = if(isChecked) R.drawable.list_image else R.drawable.check_image
-            val targetText = if(isChecked) "핑계" else "할일"
-            val targetActivity = if(isChecked) StatActivity::class.java else MainActivity::class.java
-
+            val targetColor = ContextCompat.getColor(
+                toggleImageView.context,
+                if (isChecked) R.color.red else R.color.header_blue
+            )
+            val targetImage = if (isChecked) R.drawable.list_image else R.drawable.check_image
+            val targetText = if (isChecked) "핑계" else "할일"
+            val targetFragment = if (isChecked) ListFragment() else HomeFragment()
             toggleImageView.apply {
                 setImageResource(targetImage)
                 setColorFilter(targetColor)
             }
-            toggleTextView.apply{
+            toggleTextView.apply {
                 setText(targetText)
                 setTextColor(targetColor)
             }
@@ -119,9 +123,10 @@ class CommonUIHandler {
             menuImageView.setColorFilter(targetColor)
             menutextView.setTextColor(targetColor)
 
-            activity.startActivity(Intent(activity, targetActivity))
+            activity.supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, targetFragment)
+                .commit()
         }
-
         //프로필 설정
 //        subGreetingTextView = activity.findViewById<TextView>(R.id.subGreetingTextView)
 //        val subGreetingText = when(activity){
@@ -146,18 +151,39 @@ class CommonUIHandler {
 
         //2. 각 버튼에 리스너 연결
         homeMenu.setOnClickListener {
-            if (activity !is MainActivity) activity.startActivity(Intent(activity, MainActivity::class.java))
+            if (activity !is MainActivity) activity.startActivity(
+                Intent(
+                    activity,
+                    MainActivity::class.java
+                )
+            )
         }
         statMenu.setOnClickListener {
-            if (activity !is StatActivity) activity.startActivity(Intent(activity, StatActivity::class.java))
+            if (activity !is StatActivity) activity.startActivity(
+                Intent(
+                    activity,
+                    StatActivity::class.java
+                )
+            )
         }
         settingMenu.setOnClickListener {
-            if (activity !is SettingActivity) activity.startActivity(Intent(activity, SettingActivity::class.java))
+            if (activity !is SettingActivity) activity.startActivity(
+                Intent(
+                    activity,
+                    SettingActivity::class.java
+                )
+            )
         }
         setting2Menu.setOnClickListener {
-            if (activity !is Setting2Activity) activity.startActivity(Intent(activity, Setting2Activity::class.java))
+            if (activity !is Setting2Activity) activity.startActivity(
+                Intent(
+                    activity,
+                    Setting2Activity::class.java
+                )
+            )
         }
     }
+
 
     private fun applyTopBottomPaddingForEdgeToEdge(rootView: View) {
 

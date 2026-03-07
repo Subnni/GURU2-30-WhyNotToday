@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class CalendarUtils
 {
-    public static LocalDate selectedDate = LocalDate.now(ZoneId.of("Asia/Seoul"));
+    public static LocalDate selectedDate = LocalDate.now();
 
     public static String formattedDate(LocalDate date)
     {
@@ -29,7 +29,7 @@ public class CalendarUtils
 
     public static String monthYearFromDate(LocalDate date)
     {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MMMM");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 M월");
         return date.format(formatter);
     }
 

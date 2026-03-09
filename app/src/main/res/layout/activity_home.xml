@@ -7,194 +7,200 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <!--헤더-->
-    <include
-        android:id="@+id/header"
-        layout="@layout/layout_header" />
-
-    <!--    android:id="@+id/todoListLayout"-->
-    <!--목록-->
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="520dp"
-        android:orientation="vertical"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="32dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/main_box"
-            android:elevation="10dp"
-            android:orientation="vertical"
-            android:paddingTop="25dp"
-            android:paddingBottom="20dp">
-
-            <!--날짜-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_marginBottom="20dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/prevButton"
-                        android:layout_width="13dp"
-                        android:layout_height="24dp"
-                        android:layout_marginEnd="55dp"
-                        android:scaleType="fitXY"
-                        app:tint="@color/gray"
-                        android:src="@drawable/left_arrow_image" />
-
-                    <TextView
-                        android:id="@+id/dateTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="55dp"
-                        android:text="2026.01.24"
-                        android:textColor="@color/gray"
-                        android:textSize="22sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:id="@+id/nextButton"
-                        android:layout_width="13dp"
-                        android:layout_height="24dp"
-                        android:scaleType="fitXY"
-                        app:tint="@color/gray"
-                        android:src="@drawable/right_arrow_image" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/dayTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="5dp"
-                    android:text="일요일"
-                    android:textColor="@color/gray"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="20dp"
-                android:scrollbars="none">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
->
-                    <!--해야 할 중요한 일 -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
-                        android:layout_marginBottom="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="15dp"
-                            android:layout_marginEnd="10dp"
-                            android:scaleType="fitXY"
-                            app:tint="@color/blue_100"
-                            android:src="@drawable/star_image" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="오늘 해야 할 "
-                            android:textColor="@color/gray"
-                            android:textSize="13sp" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="중요한 일"
-                            android:textColor="@color/blue_100"
-                            android:fontFamily="@font/paperlogy_semibold"
-                            android:textSize="13sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/containerImportant"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical" />
-
-                    <!--해야할 일-->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginTop="15dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="15dp"
-                            android:layout_marginEnd="10dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/star_image" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="해야할 일"
-                            android:textColor="@color/gray"
-                            android:textSize="13sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/containerGeneral"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical" />
-                </LinearLayout>
-
-            </ScrollView>
-        </LinearLayout>
-    </LinearLayout>
-
-    <!--추가하기 버튼-->
-    <ImageButton
-        android:id="@+id/todoAddImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/todo_add_button_image"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?attr/selectableItemBackground"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="72dp"
-        android:paddingVertical="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
 
-    <!--하단 네비게이션 바-->
-    <include
-        android:id="@+id/navigationBar"
-        layout="@layout/layout_navigation_bar"
-        android:outlineProvider="background" />
+    <!--/*사용 X 파일*/-->
+
+
+
+<!--    &lt;!&ndash;헤더&ndash;&gt;-->
+<!--    <include-->
+<!--        android:id="@+id/header"-->
+<!--        layout="@layout/layout_header" />-->
+
+<!--    &lt;!&ndash;    android:id="@+id/todoListLayout"&ndash;&gt;-->
+<!--    &lt;!&ndash;목록&ndash;&gt;-->
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/linearLayout2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="520dp"-->
+<!--        android:orientation="vertical"-->
+
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/header">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginHorizontal="32dp"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            android:background="@drawable/main_box"-->
+<!--            android:elevation="10dp"-->
+<!--            android:orientation="vertical"-->
+<!--            android:paddingTop="25dp"-->
+<!--            android:paddingBottom="20dp">-->
+
+<!--            &lt;!&ndash;날짜&ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="center_horizontal"-->
+<!--                android:layout_marginBottom="20dp"-->
+<!--                android:orientation="vertical">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:orientation="horizontal">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/prevButton"-->
+<!--                        android:layout_width="13dp"-->
+<!--                        android:layout_height="24dp"-->
+<!--                        android:layout_marginEnd="55dp"-->
+<!--                        android:scaleType="fitXY"-->
+<!--                        app:tint="@color/gray"-->
+<!--                        android:src="@drawable/left_arrow_image" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/dateTextView"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginEnd="55dp"-->
+<!--                        android:text="2026.01.24"-->
+<!--                        android:textColor="@color/gray"-->
+<!--                        android:textSize="22sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/nextButton"-->
+<!--                        android:layout_width="13dp"-->
+<!--                        android:layout_height="24dp"-->
+<!--                        android:scaleType="fitXY"-->
+<!--                        app:tint="@color/gray"-->
+<!--                        android:src="@drawable/right_arrow_image" />-->
+<!--                </LinearLayout>-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/dayTextView"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:paddingTop="5dp"-->
+<!--                    android:text="일요일"-->
+<!--                    android:textColor="@color/gray"-->
+<!--                    android:textSize="14sp" />-->
+<!--            </LinearLayout>-->
+
+<!--            <ScrollView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:paddingBottom="20dp"-->
+<!--                android:scrollbars="none">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--&gt;-->
+<!--                    &lt;!&ndash;해야 할 중요한 일 &ndash;&gt;-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="25dp"-->
+<!--                        android:layout_marginBottom="5dp"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="16dp"-->
+<!--                            android:layout_height="15dp"-->
+<!--                            android:layout_marginEnd="10dp"-->
+<!--                            android:scaleType="fitXY"-->
+<!--                            app:tint="@color/blue_100"-->
+<!--                            android:src="@drawable/star_image" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="오늘 해야 할 "-->
+<!--                            android:textColor="@color/gray"-->
+<!--                            android:textSize="13sp" />-->
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="중요한 일"-->
+<!--                            android:textColor="@color/blue_100"-->
+<!--                            android:fontFamily="@font/paperlogy_semibold"-->
+<!--                            android:textSize="13sp" />-->
+<!--                    </LinearLayout>-->
+
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/containerImportant"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical" />-->
+
+<!--                    &lt;!&ndash;해야할 일&ndash;&gt;-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="25dp"-->
+<!--                        android:layout_marginBottom="5dp"-->
+<!--                        android:layout_marginTop="15dp"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="16dp"-->
+<!--                            android:layout_height="15dp"-->
+<!--                            android:layout_marginEnd="10dp"-->
+<!--                            android:scaleType="fitXY"-->
+<!--                            android:src="@drawable/star_image" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="해야할 일"-->
+<!--                            android:textColor="@color/gray"-->
+<!--                            android:textSize="13sp" />-->
+<!--                    </LinearLayout>-->
+
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/containerGeneral"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical" />-->
+<!--                </LinearLayout>-->
+
+<!--            </ScrollView>-->
+<!--        </LinearLayout>-->
+<!--    </LinearLayout>-->
+
+<!--    &lt;!&ndash;추가하기 버튼&ndash;&gt;-->
+<!--    <ImageButton-->
+<!--        android:id="@+id/todoAddImageButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/todo_add_button_image"-->
+<!--        android:clickable="true"-->
+<!--        android:focusable="true"-->
+<!--        android:foreground="?attr/selectableItemBackground"-->
+<!--        android:gravity="center_vertical"-->
+<!--        android:paddingHorizontal="72dp"-->
+<!--        android:paddingVertical="10dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />-->
+
+
+<!--    &lt;!&ndash;하단 네비게이션 바&ndash;&gt;-->
+<!--    <include-->
+<!--        android:id="@+id/navigationBar"-->
+<!--        layout="@layout/layout_navigation_bar"-->
+<!--        android:outlineProvider="background" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

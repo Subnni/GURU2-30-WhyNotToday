@@ -3,19 +3,24 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!--header-->
+    <!--header--><!--main color-->
     <color name="header_blue">#4200FF</color>
 
-    <!--ListActivity-->
+    <!--List-->
     <color name="red">#EF5656</color>
+    <color name="background_red">#0DEF5656</color>
+    <!--Home-->
     <color name="background_blue">#1A7280FF</color>
     <color name="blue_20">#337280FF</color>
     <color name="green_20">#3368F16D</color>
-    <!--ListActivity-calendar_cell -->
+
+    <!--List-calendar_cell -->
     <color name="blue_25">#407280FF</color>
     <color name="blue_50">#807280FF</color>
     <color name="blue_75">#BF7280FF</color>
     <color name="blue_100">#FF7280FF</color>
+
+    <!--Home-calendar_cell -->
 
     <!--font_color-->
     <color name="gray">#3A3A3A</color>

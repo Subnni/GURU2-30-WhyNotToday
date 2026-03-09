@@ -9,191 +9,193 @@
     android:orientation="vertical"
     android:background="@color/white">
 
-    <!--헤더-->
-    <include
-        android:id="@+id/header"
-        layout="@layout/layout_header" />
+    <!--/*사용 X 파일*/-->
 
-    <!--본문 영역-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header">
+    <!--&lt;!&ndash;헤더&ndash;&gt;-->
+    <!--<include-->
+    <!--    android:id="@+id/header"-->
+    <!--    layout="@layout/layout_header" />-->
 
-        <!--년, 월 출력-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+    <!--&lt;!&ndash;본문 영역&ndash;&gt;-->
+    <!--<LinearLayout-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="0dp"-->
+    <!--    android:orientation="vertical"-->
+    <!--    app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--    app:layout_constraintEnd_toEndOf="parent"-->
+    <!--    app:layout_constraintStart_toStartOf="parent"-->
+    <!--    app:layout_constraintTop_toBottomOf="@id/header">-->
 
-            <TextView
-                android:id="@+id/monthYearTextView"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:text="2026년 0월"
-                android:textAlignment="center"
-                android:textColor="#8888ff"
-                android:textSize="21sp" />
-        </LinearLayout>
-        <!--주차 선택-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginBottom="15dp"
-            android:orientation="horizontal">
+    <!--    &lt;!&ndash;년, 월 출력&ndash;&gt;-->
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="20dp">-->
 
-            <ImageButton
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:onClick="previousWeekAction"
-                android:scaleType="fitEnd"
-                android:src="@drawable/left_arrow_image" />
+    <!--        <TextView-->
+    <!--            android:id="@+id/monthYearTextView"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:layout_weight="2"-->
+    <!--            android:text="2026년 0월"-->
+    <!--            android:textAlignment="center"-->
+    <!--            android:textColor="#8888ff"-->
+    <!--            android:textSize="21sp" />-->
+    <!--    </LinearLayout>-->
+    <!--    &lt;!&ndash;주차 선택&ndash;&gt;-->
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginLeft="40dp"-->
+    <!--        android:layout_marginTop="15dp"-->
+    <!--        android:layout_marginRight="40dp"-->
+    <!--        android:layout_marginBottom="15dp"-->
+    <!--        android:orientation="horizontal">-->
+
+    <!--        <ImageButton-->
+    <!--            android:layout_width="25dp"-->
+    <!--            android:layout_height="25dp"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:background="@null"-->
+    <!--            android:onClick="previousWeekAction"-->
+    <!--            android:scaleType="fitEnd"-->
+    <!--            android:src="@drawable/left_arrow_image" />-->
 
 
-            <TextView
-                android:id="@+id/weekTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2.4"
-                android:fontFamily="@font/paperlogy_semibold"
-                android:text="- 주차"
-                android:textAlignment="center"
-                android:textColor="#3300ff"
-                android:textSize="18sp" />
+    <!--        <TextView-->
+    <!--            android:id="@+id/weekTextView"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_weight="2.4"-->
+    <!--            android:fontFamily="@font/paperlogy_semibold"-->
+    <!--            android:text="- 주차"-->
+    <!--            android:textAlignment="center"-->
+    <!--            android:textColor="#3300ff"-->
+    <!--            android:textSize="18sp" />-->
 
-            <ImageButton
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:onClick="nextWeekAction"
-                android:scaleType="fitStart"
-                android:src="@drawable/right_arrow_image" />
+    <!--        <ImageButton-->
+    <!--            android:layout_width="25dp"-->
+    <!--            android:layout_height="25dp"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:background="@null"-->
+    <!--            android:onClick="nextWeekAction"-->
+    <!--            android:scaleType="fitStart"-->
+    <!--            android:src="@drawable/right_arrow_image" />-->
 
-        </LinearLayout>
+    <!--    </LinearLayout>-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="45dp"
-            android:layout_marginRight="45dp"
-            android:layout_marginBottom="25dp"
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginLeft="45dp"-->
+    <!--        android:layout_marginRight="45dp"-->
+    <!--        android:layout_marginBottom="25dp"-->
 
-            android:orientation="vertical">
+    <!--        android:orientation="vertical">-->
 
-            <!--날짜-->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/calendarRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:nestedScrollingEnabled="false"
-                android:overScrollMode="never"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="7"
-                tools:itemCount="7"
-                tools:listitem="@layout/calendar_cell" />
-        </LinearLayout>
+    <!--        &lt;!&ndash;날짜&ndash;&gt;-->
+    <!--        <androidx.recyclerview.widget.RecyclerView-->
+    <!--            android:id="@+id/calendarRecyclerView"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginTop="5dp"-->
+    <!--            android:nestedScrollingEnabled="false"-->
+    <!--            android:overScrollMode="never"-->
+    <!--            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
+    <!--            app:spanCount="7"-->
+    <!--            tools:itemCount="7"-->
+    <!--            tools:listitem="@layout/calendar_cell" />-->
+    <!--    </LinearLayout>-->
 
-        <!--리스트 영역-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="411dp"
-            android:background="#F0F0FF"
-            android:orientation="vertical">
+    <!--    &lt;!&ndash;리스트 영역&ndash;&gt;-->
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="411dp"-->
+    <!--        android:background="#F0F0FF"-->
+    <!--        android:orientation="vertical">-->
 
-            <!--날짜 개요-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="35dp"
-                android:paddingTop="25dp"
-                android:paddingRight="35dp">
+    <!--        &lt;!&ndash;날짜 개요&ndash;&gt;-->
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:gravity="center_vertical"-->
+    <!--            android:orientation="horizontal"-->
+    <!--            android:paddingLeft="35dp"-->
+    <!--            android:paddingTop="25dp"-->
+    <!--            android:paddingRight="35dp">-->
 
-                <TextView
-                    android:id="@+id/selectedDateTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="00.00 (요일)"
-                    android:textColor="#7B89F4"
-                    android:textSize="20sp" />
+    <!--            <TextView-->
+    <!--                android:id="@+id/selectedDateTextView"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:text="00.00 (요일)"-->
+    <!--                android:textColor="#7B89F4"-->
+    <!--                android:textSize="20sp" />-->
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
+    <!--            <View-->
+    <!--                android:layout_width="0dp"-->
+    <!--                android:layout_height="0dp"-->
+    <!--                android:layout_weight="1" />-->
 
-                <TextView
-                    android:id="@+id/excuseDensityTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:text="핑계 농도"
-                    android:textColor="#7B89F4"
-                    android:textSize="15sp" />
+    <!--            <TextView-->
+    <!--                android:id="@+id/excuseDensityTextView"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginEnd="4dp"-->
+    <!--                android:text="핑계 농도"-->
+    <!--                android:textColor="#7B89F4"-->
+    <!--                android:textSize="15sp" />-->
 
-                <TextView
-                    android:id="@+id/excuseDensityTextView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="-%"
-                    android:fontFamily="@font/paperlogy_bold"
-                    android:textColor="#7B89F4"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+    <!--            <TextView-->
+    <!--                android:id="@+id/excuseDensityTextView2"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginEnd="8dp"-->
+    <!--                android:text="-%"-->
+    <!--                android:fontFamily="@font/paperlogy_bold"-->
+    <!--                android:textColor="#7B89F4"-->
+    <!--                android:textSize="15sp"-->
+    <!--                android:textStyle="bold" />-->
 
-                <View
-                    android:id="@+id/excuseDensityBox"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:background="@drawable/rounded_box" />
+    <!--            <View-->
+    <!--                android:id="@+id/excuseDensityBox"-->
+    <!--                android:layout_width="24dp"-->
+    <!--                android:layout_height="24dp"-->
+    <!--                android:background="@drawable/rounded_box" />-->
 
-            </LinearLayout>
+    <!--        </LinearLayout>-->
 
-            <!--날짜별 핑계 목록-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+    <!--        &lt;!&ndash;날짜별 핑계 목록&ndash;&gt;-->
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:orientation="vertical"-->
+    <!--            android:padding="16dp">-->
 
-                <ScrollView
-                    android:id="@+id/listScrollView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="none">
+    <!--            <ScrollView-->
+    <!--                android:id="@+id/listScrollView"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:scrollbars="none">-->
 
-                    <LinearLayout
-                        android:id="@+id/excuseLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:paddingLeft="16dp"
-                        android:paddingRight="16dp">
+    <!--                <LinearLayout-->
+    <!--                    android:id="@+id/excuseLayout"-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="match_parent"-->
+    <!--                    android:orientation="vertical"-->
+    <!--                    android:paddingLeft="16dp"-->
+    <!--                    android:paddingRight="16dp">-->
 
-                    </LinearLayout>
-                </ScrollView>
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
+    <!--                </LinearLayout>-->
+    <!--            </ScrollView>-->
+    <!--        </LinearLayout>-->
+    <!--    </LinearLayout>-->
+    <!--</LinearLayout>-->
 
-    <!--네비게이션 바-->
-    <include
-        android:id="@+id/navigationBar"
-        android:outlineProvider="background"
-        layout="@layout/layout_navigation_bar" />
+    <!--&lt;!&ndash;네비게이션 바&ndash;&gt;-->
+    <!--<include-->
+    <!--    android:id="@+id/navigationBar"-->
+    <!--    android:outlineProvider="background"-->
+    <!--    layout="@layout/layout_navigation_bar" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

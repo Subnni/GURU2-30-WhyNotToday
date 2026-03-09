@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
@@ -29,6 +30,7 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
         this.onItemListener = onItemListener;
     }
 
+    //리사이클러뷰 - 각 뷰 생성 클래스
     @NonNull
     @Override
     public CalendarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
@@ -55,26 +57,38 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
         }
         else
         {
-            //토, 일요일 글자 색 변경
+            //일주일 날짜 표시
             holder.dayOfMonth.setText(String.valueOf(date.getDayOfMonth()));
+
+
+
+            //today 글자 색/배경 색 변경
+            LocalDate today = LocalDate.now();
+            if (date.equals(today)) {
+//                holder.parentView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.green_20)));
+                holder.dayOfWeek.setTextColor(ContextCompat.getColor(context, R.color.white));
+                holder.dayOfWeek.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.gray)));
+            } else{
+                holder.dayOfWeek.setTextColor(ContextCompat.getColor(context, R.color.gray));
+                holder.dayOfWeek.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.transparent)));
+            }
+
+            //토, 일요일 글자 색 변경
+            //단, today가 토/일일 시 글자 색 변경 X
             holder.dayOfWeek.setText(getDayOfWeekName(date));
-            if("일".equals(holder.dayOfWeek.getText().toString())) {
+            if("일".equals(holder.dayOfWeek.getText().toString())
+                    && (today.getDayOfWeek() != java.time.DayOfWeek.SUNDAY)) {
                 holder.dayOfWeek.setTextColor(ContextCompat.getColor(context, R.color.red));
                 holder.dayOfMonth.setTextColor(ContextCompat.getColor(context, R.color.red));
             }
-            if("토".equals(holder.dayOfWeek.getText().toString())) {
+            if("토".equals(holder.dayOfWeek.getText().toString())
+                    && (today.getDayOfWeek() != java.time.DayOfWeek.SATURDAY)) {
                 holder.dayOfWeek.setTextColor(ContextCompat.getColor(context, R.color.blue_100));
                 holder.dayOfMonth.setTextColor(ContextCompat.getColor(context, R.color.blue_100));
             }
-            //오늘 날짜 배경색 변경
-            LocalDate today = LocalDate.now();
-            if (date.equals(today)) {
-                holder.parentView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.green_20)));
-            }
 
             //선택된 날짜의 배경색 변경
-            if(date.equals(CalendarUtils.selectedDate))
-                holder.parentView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.blue_20)));
+            holder.parentView.setSelected(date.equals(CalendarUtils.selectedDate));
 
             //날짜별 핑계 농도 계산하여 박스 배경색 적용
             if (sqlitedb == null) {
@@ -82,30 +96,33 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
                 sqlitedb = dbManager.getReadableDatabase();
             }
             Cursor cursor = null;
+
             String query = "SELECT count(*) FROM todoTBL " +
-                    "WHERE date_time LIKE '" + date.toString() + "%' " +
-                    "AND is_done = 0";
+                    "WHERE date_time LIKE '" + date.toString() + "%' ";
             cursor = sqlitedb.rawQuery(query, null);
-            int incompleteTaskCount = 0;
-            if (cursor.moveToFirst()) { incompleteTaskCount = cursor.getInt(0); }
-            else { incompleteTaskCount = 0; }
+            int taskCount = 0;
+            if (cursor.moveToFirst()) { taskCount = cursor.getInt(0); }
+            else { taskCount = 0; }
             cursor.close();
 
             String query2 = "SELECT count(*) FROM todoTBL " +
-                    "INNER JOIN excuseTBL ON todoTBL.todo_id = excuseTBL.todo_id " +
-                    "WHERE todoTBL.date_time LIKE '" + date.toString() + "%'";
+                    "WHERE date_time LIKE '" + date.toString() + "%' " +
+                    "AND is_done = 1";
             cursor = sqlitedb.rawQuery(query2, null);
-            int excuseCount = 0;
-            if (cursor.moveToFirst()) { excuseCount = cursor.getInt(0); }
-            else { excuseCount = 0; }
+            int achievedTaskCount = 0;
+            if (cursor.moveToFirst()) { achievedTaskCount = cursor.getInt(0); }
+            else { achievedTaskCount = 0; }
             cursor.close();
 
-            int excuseRatio = 0;
-            if(incompleteTaskCount==0) { excuseRatio = 0;}
+            int achieveRatio = 0;
+            if(taskCount==0) { achieveRatio = 0;}
             else {
-                excuseRatio = (int)(((float)excuseCount /(float)incompleteTaskCount) * 100);
+                achieveRatio = (int)(((float)achievedTaskCount /(float)taskCount) * 100);
             }
-            CalendarUtils.updateBoxColor(holder.roundedBox, excuseRatio);
+            CalendarUtils.updateBoxColor(holder.roundedBox, achieveRatio);
+            holder.achieveCountTextView.setText(String.valueOf(achievedTaskCount));
+            holder.todoCountTextView.setText(String.valueOf(taskCount));
+
         }
     }
 

@@ -5,9 +5,11 @@ import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -24,7 +26,9 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
     private final OnItemListener onItemListener;
     private SQLiteDatabase sqlitedb;
 
-    public CalendarAdapter(ArrayList<LocalDate> days, OnItemListener onItemListener)
+    public CalendarAdapter(
+            ArrayList<LocalDate> days,
+            OnItemListener onItemListener)
     {
         this.days = days;
         this.onItemListener = onItemListener;
@@ -59,8 +63,6 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
         {
             //일주일 날짜 표시
             holder.dayOfMonth.setText(String.valueOf(date.getDayOfMonth()));
-
-
 
             //today 글자 색/배경 색 변경
             LocalDate today = LocalDate.now();
@@ -119,7 +121,9 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
             else {
                 achieveRatio = (int)(((float)achievedTaskCount /(float)taskCount) * 100);
             }
-            CalendarUtils.updateBoxColor(holder.roundedBox, achieveRatio);
+
+            CalendarUtils.updateBoxColor(holder.roundedBox, achieveRatio, WeekCalendarManager.getColor());
+            CalendarUtils.updateTextColor(holder.achieveCountTextView, holder.slashTextView, holder.todoCountTextView, WeekCalendarManager.getColor());
             holder.achieveCountTextView.setText(String.valueOf(achievedTaskCount));
             holder.todoCountTextView.setText(String.valueOf(taskCount));
 
@@ -150,4 +154,6 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
             default:        return "";
         }
     }
+
+
 }

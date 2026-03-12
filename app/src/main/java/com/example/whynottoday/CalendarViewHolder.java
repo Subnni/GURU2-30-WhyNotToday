@@ -18,6 +18,7 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
     public final View parentView;
     public final View roundedBox;
     public final TextView achieveCountTextView;
+    public final TextView slashTextView;
     public final TextView todoCountTextView;
     public final TextView dayOfMonth;
     public final TextView dayOfWeek;
@@ -32,6 +33,7 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
 
         //성취 및 할일 개수
         achieveCountTextView = itemView.findViewById(R.id.achieveCountTextView);
+        slashTextView = itemView.findViewById(R.id.slashTextView);
         todoCountTextView = itemView.findViewById(R.id.todoCountTextView);
 
         //날짜 및 요일

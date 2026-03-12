@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--우측 토글-->
+    <style name="category_toggle">
+        <item name="thumbTint">@color/header_blue</item>
+        <item name="track">@drawable/toggle_button</item>
+        <item name="android:thumb">@drawable/toggle_thumb</item>
+        <item name="android:enabled">true</item>
+
+    </style>
+</resources>

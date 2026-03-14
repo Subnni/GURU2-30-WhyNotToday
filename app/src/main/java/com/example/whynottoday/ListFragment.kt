@@ -16,6 +16,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +25,7 @@ import androidx.core.content.res.ResourcesCompat
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-class ListFragment : Fragment(){
+class ListFragment : Fragment(), OnDateChangeListener {
 
     //사용 변수 - 캘린더
     private lateinit var manager: WeekCalendarManager
@@ -36,7 +37,7 @@ class ListFragment : Fragment(){
     private lateinit var todoCountTextView : TextView
     //사용 변수 - 오늘 날짜 정보
     private lateinit var selectedDateTextView : TextView
-    private lateinit var achieveDensityBox : View
+    //private lateinit var achieveDensityBox : View
 
     //사용 변수 - 오늘 날짜 리스트
     private lateinit var dbManager: DBManager
@@ -73,15 +74,14 @@ class ListFragment : Fragment(){
         selectedDateTextView = view.findViewById<TextView>(R.id.selectedDateTextView)
         achieveCountTextView = view.findViewById<TextView>(R.id.achieveCountTextView)
         todoCountTextView = view.findViewById<TextView>(R.id.todoCountTextView)
-        achieveDensityBox = view.findViewById<View>(R.id.achieveDensityBox)
+        //achieveDensityBox = view.findViewById<View>(R.id.achieveDensityBox)
         excuseLayout = view.findViewById(R.id.excuseLayout)
 
         //달력 및 리스트 세팅
-        manager = WeekCalendarManager(requireContext(), view, "red")
+        manager = WeekCalendarManager(requireContext(), view, "red", this)
         manager.initCalendar()
 
-        setSelectedDateAdapter() //선택한 날짜, 성취 비율 세팅
-        setExcuseLayoutAdapter() //핑계 리스트 세팅
+        onDateChange() //달력 세팅 시 오늘 날짜 선택되도록 함
 
         //스크롤 방향 감지하여 하단 UI 제어
         listScrollView = view.findViewById<ScrollView>(R.id.listScrollView)
@@ -119,8 +119,12 @@ class ListFragment : Fragment(){
     //추가, 수정, 삭제 후 다시 그리기
     override fun onResume() {
         super.onResume()
-        setSelectedDateAdapter()
-        setExcuseLayoutAdapter()
+        onDateChange() //프래그먼트 이동해도 날짜 바뀌지 않도록
+    }
+
+    override fun onDateChange() {
+        setSelectedDateAdapter() //선택한 날짜, 성취 비율 세팅
+        setExcuseLayoutAdapter() //핑계 리스트 세팅
     }
 
     //선택된 날의 날짜, 핑계 비율 출력

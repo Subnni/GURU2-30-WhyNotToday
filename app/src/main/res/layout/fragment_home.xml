@@ -63,7 +63,7 @@
                 <ImageButton
                     android:id="@+id/todoAddImageButton"
                     android:layout_width="100dp"
-                    android:layout_height="40dp"
+                    android:layout_height="20dp"
                     android:background="@drawable/todo_add_button_image"
                     android:clickable="true"
                     android:focusable="true"

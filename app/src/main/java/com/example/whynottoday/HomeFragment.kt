@@ -17,11 +17,14 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-class HomeFragment : Fragment(){
+class HomeFragment : Fragment(), OnDateChangeListener{
+
+    private lateinit var selectedDateTextView : TextView
 
     lateinit var dateButton: TextView
     lateinit var datButton: TextView
@@ -51,6 +54,8 @@ class HomeFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 //        paperFont = ResourcesCompat.getFont(this, R.font.paperlogy_medium)
 
+        selectedDateTextView = view.findViewById<TextView>(R.id.selectedDateTextView)
+
         dateButton = view.findViewById(R.id.dateTextView)
         datButton = view.findViewById(R.id.dayTextView)
         addButton = view.findViewById(R.id.todoAddImageButton)
@@ -60,8 +65,10 @@ class HomeFragment : Fragment(){
         nextButton = view.findViewById(R.id.nextButton)
 
         //캘린더 설정
-        val manager = WeekCalendarManager(requireContext(), view, "blue")
+        val manager = WeekCalendarManager(requireContext(), view, "blue", this)
         manager.initCalendar()
+
+        onDateChange() //달력 세팅 시 오늘 날짜 선택되도록 함
 
         // 섹션 타이틀 포함 폰트 적용
 //        val staticTexts = listOf(tvDate, tvDay,
@@ -85,23 +92,39 @@ class HomeFragment : Fragment(){
     }
 
     //새로고침 시마다 호출(날짜 데이터 최신화)
-    override fun onResume() { super.onResume(); updateScreenByDate() }
+    override fun onResume() { super.onResume(); updateScreenByDate(); onDateChange() }
 
+    override fun onDateChange() {
+        setSelectedDateAdapter() //선택한 날짜, 성취 비율 세팅
+        //setHomeLayoutAdapter()
+        updateScreenByDate()
+    }
     private fun dpToPx(dp: Float): Int = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics).toInt()
 
 
     //액티비티 onCreate시, 특정 날짜 클릭 시마다 호출되어 페이지 구성
 
+    private fun setSelectedDateAdapter(){
+        //날짜
+        val selectedDate = CalendarUtils.selectedDate
+        val format = DateTimeFormatter.ofPattern("MM. dd (E)", Locale.KOREAN)
+        selectedDateTextView.text = selectedDate.format(format)
+    }
 
     private fun updateScreenByDate() {
-        val uiFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
-        dateButton.text = uiFormat.format(currentCalendar.time)
-        val dayFormat = SimpleDateFormat("EEEE", Locale.KOREA)
-        datButton.text = dayFormat.format(currentCalendar.time)
+        val selectedDate = CalendarUtils.selectedDate //선택 날짜
+
+        //포맷터
+        val uiFormat = java.time.format.DateTimeFormatter.ofPattern("yyyy.MM.dd", Locale.getDefault())
+        val dayFormat = java.time.format.DateTimeFormatter.ofPattern("EEEE", Locale.KOREA)
+        val dbFormat = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault())
+
+        dateButton.text = selectedDate.format(uiFormat)
+        datButton.text = selectedDate.format(dayFormat)
 
         //오늘 날짜의 색상 변경
-        val todayStr = uiFormat.format(Date())
-        if (uiFormat.format(currentCalendar.time) == todayStr) {
+        val today = java.time.LocalDate.now()
+        if (selectedDate.equals(today)) {
             dateButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_100))
             datButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue_100))
         } else {
@@ -109,7 +132,7 @@ class HomeFragment : Fragment(){
             datButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
         }
 
-        loadAndDisplayData(SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(currentCalendar.time))
+        loadAndDisplayData(selectedDate.format(dbFormat))
     }
 
     private fun loadAndDisplayData(searchDate: String) {

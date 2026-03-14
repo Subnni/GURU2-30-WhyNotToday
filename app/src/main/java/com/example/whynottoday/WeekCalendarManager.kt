@@ -12,10 +12,16 @@ import com.example.whynottoday.CalendarUtils.monthYearFromDate
 import java.time.LocalDate
 
 
+//날짜 변경 시 호출할 함수가 정의된 인터페이스
+interface OnDateChangeListener{
+    fun onDateChange()
+}
+
 class WeekCalendarManager(
     private val context: Context,
     private val view: View,
     private val theme: String,
+    private val listener : OnDateChangeListener
 ) : CalendarAdapter.OnItemListener { //상속
 
     init {
@@ -62,6 +68,7 @@ class WeekCalendarManager(
     public override fun onItemClick(position: Int, date: LocalDate?) {
         CalendarUtils.selectedDate = date
         setWeekView()
+        listener.onDateChange() //프래그먼트에 날짜 변경 전달
     }
 
     public fun setPrevNextButtonAction(){
@@ -99,4 +106,7 @@ class WeekCalendarManager(
         }
         initCalendar()
     }
+
+
+
 }

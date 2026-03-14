@@ -65,26 +65,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
-                    android:text="핑계 농도"
-                    android:textColor="#7B89F4"
-                    android:textSize="15sp" />
+                    android:text="* 완료된 할 일은 보이지 않습니다."
+                    android:textColor="@color/red"
+                    android:textSize="10sp" />
 
-                <TextView
-                    android:id="@+id/achieveCountTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/paperlogy_bold"
-                    android:text="-%"
-                    android:textColor="#7B89F4"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                <!--<TextView-->
+                <!--    android:id="@+id/achieveCountTextView"-->
+                <!--    android:layout_width="wrap_content"-->
+                <!--    android:layout_height="wrap_content"-->
+                <!--    android:layout_marginEnd="8dp"-->
+                <!--    android:fontFamily="@font/paperlogy_bold"-->
+                <!--    android:text="-%"-->
+                <!--    android:textColor="#7B89F4"-->
+                <!--    android:textSize="15sp"-->
+                <!--    android:textStyle="bold" />-->
 
-                <View
-                    android:id="@+id/achieveDensityBox"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:background="@drawable/rounded_box" />
+                <!--<View-->
+                <!--    android:id="@+id/achieveDensityBox"-->
+                <!--    android:layout_width="24dp"-->
+                <!--    android:layout_height="24dp"-->
+                <!--    android:background="@drawable/rounded_box" />-->
 
             </LinearLayout>
 
@@ -116,9 +116,9 @@
     </LinearLayout>
 
     <!--네비게이션 바-->
-    <include
-        android:id="@+id/navigationBar"
-        android:outlineProvider="background"
-        layout="@layout/layout_navigation_bar" />
+    <!--<include-->
+    <!--    android:id="@+id/navigationBar"-->
+    <!--    android:outlineProvider="background"-->
+    <!--    layout="@layout/layout_navigation_bar" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
